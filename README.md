@@ -1,7 +1,7 @@
 - 👋 Hi, I’m @TenshiYoshinobu
-- 👀 I’m interested in Program something things
+- 👀 I’m interested in programming something things
 - 🌱 I’m currently learning Python and MySql
-- 💞️ I’m looking to collaborate on i don't know
+- 💞️ I’m looking to collaborate or i don't know
 - 📫 How to reach me kisaiabd@gmail.com
 
 <!---

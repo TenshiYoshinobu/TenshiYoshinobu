@@ -7,6 +7,27 @@
    Cada bloque se separa con una línea en blanco.
    ===================================================================== */
 window.DSA_CONTENT={
+11:{
+intro:`OpenMediaVault (OMV) es un sistema operativo libre, basado en Debian, pensado para montar un NAS (Network Attached Storage): un servidor de almacenamiento conectado a la red. Se administra desde una interfaz web, sin necesidad de usar la terminal para las tareas habituales.
+
+Un NAS es un equipo dedicado a guardar archivos y ofrecerlos a otros dispositivos por red. Los usuarios acceden a las carpetas compartidas desde sus ordenadores como si fueran un disco más.`,
+tecnico:`QUÉ OFRECE (referencia general)
+
+Gestión de discos y sistemas de archivos, carpetas compartidas, usuarios y permisos, y servicios de red para acceder a los datos (por ejemplo SMB/CIFS para equipos Windows, NFS, FTP o SSH). También permite programar tareas como las copias.
+
+FLUJO TÍPICO DE USO
+
+Instalar el sistema, entrar en la interfaz web, preparar los discos y sus sistemas de archivos, crear usuarios, crear carpetas compartidas, asignar permisos y activar el servicio por el que se accederá. Después, se comprueba el acceso desde otro equipo de la red.
+
+ADMINISTRACIÓN Y SEGURIDAD DE LOS DATOS
+
+Los permisos limitan quién lee o modifica cada carpeta (confidencialidad e integridad). Los discos y la configuración determinan la disponibilidad. Un NAS no sustituye a una copia de seguridad: si todo está en la misma máquina, un fallo grave puede perderlo todo.
+
+[ PENDIENTE ] Lo que se instaló y configuró realmente en tu práctica: versión, discos usados, carpetas, usuarios, servicios y comprobaciones. Pásame tus apuntes o capturas y lo redacto paso a paso sin inventar nada.
+
+[ PENDIENTE ] Problemas y soluciones: solo si los tienes documentados.`,
+impacto:`OpenMediaVault sirve para gestionar el almacenamiento en red y está muy ligado a la seguridad pasiva: centraliza los datos, controla el acceso y facilita las copias. No audita la seguridad del sistema: esa función la cumple una herramienta distinta como Lynis.`
+},
 4:{
 intro:`Lynis es una herramienta de auditoría de seguridad para sistemas Linux y otros Unix. Revisa la configuración del equipo, comprueba cosas como servicios, permisos, usuarios, red y actualizaciones, y al final entrega un informe con advertencias, sugerencias y una puntuación.`,
 tecnico:`EL ÍNDICE Y LOS COLORES
@@ -23,13 +44,15 @@ Rojo: hay un problema o una advertencia que requiere atención.
 
 COMANDO BÁSICO (referencia general)
 
-lynis audit system. Ejecuta una auditoría completa del sistema. Suele ejecutarse con privilegios de administrador para poder revisar todo.
+lynis audit system. Ejecuta una auditoría completa del sistema. Analiza áreas como el arranque, usuarios y contraseñas, servicios, red, permisos de archivos, software instalado y actualizaciones, y al final muestra advertencias, sugerencias y el índice. Suele ejecutarse con privilegios de administrador para poder revisar todo.
 
 [ A REVISAR ] Comprueba con tus apuntes qué puntuaciones del índice se consideraban buenas o malas en clase y qué comandos usasteis, para no afirmar nada que no se viera.`,
 experiencia:`En clase vimos, de forma técnica, qué significaba cada color que muestra Lynis (rojo, verde y amarillo) y qué es el índice que aparece al final de la auditoría.
 
 [ PENDIENTE ] Qué hicisteis exactamente con el programa y qué resultado obtuvisteis.`,
-impacto:`Una auditoría periódica ayuda a detectar configuraciones débiles antes de que las aproveche un atacante. Los colores permiten priorizar: primero lo rojo, después lo amarillo.`
+impacto:`Una auditoría periódica ayuda a detectar configuraciones débiles antes de que las aproveche un atacante. Los colores permiten priorizar: primero lo rojo, después lo amarillo.
+
+Lynis audita la seguridad de un sistema y señala qué mejorar. No gestiona almacenamiento: eso lo hace OpenMediaVault. Son herramientas distintas que se complementan, una administra y la otra revisa.`
 },
 9:{
 intro:`Un CPD (Centro de Procesamiento de Datos) es la instalación donde se alojan los servidores y equipos que almacenan y procesan la información de una organización, junto con los sistemas que los mantienen funcionando: alimentación eléctrica, refrigeración y seguridad.`,

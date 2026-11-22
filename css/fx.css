@@ -209,3 +209,11 @@
 .ds .nav button[aria-current=page]{animation:moNav 2.4s ease-in-out infinite}
 @keyframes moNav{50%{box-shadow:0 0 18px rgba(var(--c1-rgb),.55)}}
 @media (prefers-reduced-motion:reduce){.ds .mo-ban,.ds .mo-p,.ds .mo-scan{display:none}.ds .nav button[aria-current=page]{animation:none}}
+
+/* scroll narrativo */
+.ds .mo-sp{position:absolute;left:0;right:0;top:0;height:3px;z-index:70;pointer-events:none;background:rgba(255,255,255,.05)}
+.ds .mo-sp i{display:block;height:100%;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,var(--c1),var(--c3));box-shadow:0 0 10px var(--c1)}
+.ds .sr{opacity:0;transform:translateY(40px) scale(.97);filter:blur(3px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1),filter .6s}
+.ds .sr.sr-in{opacity:1;transform:none;filter:none}
+.ds .card.sr{animation:none}
+@media (prefers-reduced-motion:reduce){.ds .sr{opacity:1;transform:none;filter:none;transition:none}}

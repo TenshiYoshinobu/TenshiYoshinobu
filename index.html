@@ -15,6 +15,11 @@
    js/main.js            lógica, datos editables y juego de entrada
    js/icons.js           iconos de los 11 temas
    js/city.js            motor del mapa 3D de Night City
+   js/secrets.js         11 secretos + maestro, pistas y CAPRI
+   js/char.js            editor de personaje
+   js/hack.js            4 minijuegos de hackeo
+   js/gta.js             modo libre (juego 2D estilo GTA)
+   css/gta.css           estilos del juego, editor y hackeos
    assets/img/*.webp     imágenes        assets/audio/*.mp3  música
 
  PUBLICAR: GitHub > Settings > Pages > Deploy from a branch > main / (root).
@@ -35,6 +40,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/fx.css">
+<link rel="stylesheet" href="css/gta.css">
 </head>
 <body>
 <div class="ds has-cur" id="ds" data-theme="nightcity" data-cursor="netrunner">
@@ -51,7 +57,9 @@
         <button type="button" data-go="reflexion"><b>04</b><span>REFLEXIÓN</span><small>PERSONAL LOGS</small></button>
       </nav>
       <div class="tools">
-        <button type="button" class="tbtn" id="btnMap">MAPA</button>
+        <button type="button" class="tbtn" id="btnMap">MAPA 3D</button>
+        <button type="button" class="tbtn" id="btnSec">★ SECRETOS</button>
+        <button type="button" class="tbtn" id="btnFree">MODO LIBRE</button>
         <button type="button" class="tbtn" id="btnPers">PERSONALIZAR</button>
         <span class="conn"><i></i>ONLINE</span>
       </div>
@@ -208,6 +216,10 @@
 <script>window.DSA_IMAGES={usb:'assets/img/usb.webp',padlock:'assets/img/padlock.webp',handoff:'assets/img/handoff.webp',cable:'assets/img/cable.webp',scanner:'assets/img/scanner.webp'};</script>
 <script src="js/icons.js"></script>
 <script src="js/city.js"></script>
+<script src="js/secrets.js"></script>
+<script src="js/char.js"></script>
+<script src="js/hack.js"></script>
+<script src="js/gta.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

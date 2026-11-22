@@ -150,6 +150,8 @@ var KB=[
  {k:['phishing','suplantacion','correo falso'],a:'Phishing: engaño para que entregues datos haciéndote pasar por alguien de confianza (correo, SMS, web falsa). Señales: urgencia, enlaces raros, remitente que no cuadra. Ante la duda, no pinches y verifica por otro canal.'},
  {k:['contrasena','password','clave segura'],a:'Una buena contraseña es larga (mejor una frase), única para cada servicio y guardada en un gestor. Y activa la verificación en dos pasos siempre que puedas.'},
  {k:['chiste','broma','gracioso'],a:['¿Por qué el netrunner no sale de casa? Porque tiene demasiados paquetes pendientes.','Mi contraseña es "incorrecta". Así, cuando la olvido, el sistema me dice: tu contraseña es incorrecta.']},
+ {k:['modo libre','gta','conducir','policia','coches','dinero','misiones','llamadas'],a:'El botón MODO LIBRE abre una ciudad en vista cenital: andas, robas coches, la policía te persigue, aceptas llamadas con encargos y hackeas terminales. Con el dinero compras mejoras en la tienda amarilla… perdón, cian. Pulsa ESC para el menú. Y no, no te dejo atropellar a nadie de verdad: solo quedan aturdidos.'},
+ {k:['mapa 3d','ciudad 3d','mapa','night city'],a:'El MAPA 3D es una ciudad que puedes recorrer: arrastra para girar, rueda para el zoom, y pulsa una torre con baliza para entrar a su sección. Dicen que hay luces amarillas escondidas… yo no he dicho nada.'},
  {k:['gracias','genial'],a:['De nada. Cobro en eurodólares y buen karma.','Un placer. Apúntalo en mi cuenta, choom.']}
 ];
 var KB_FALLBACK=[
@@ -323,6 +325,9 @@ var Snd=(function(){
       else if(kind==='hang'){blip(500,.12,'sine',.1);setTimeout(function(){blip(300,.2,'sine',.1)},150)}
       else if(kind==='boom'){blip(55,.9,'sawtooth',.26);blip(110,.6,'square',.12)}
       else if(kind==='hack'){for(var q=0;q<5;q++)(function(q){setTimeout(function(){blip(300+q*160,.07,'square',.09)},q*55)})(q)}
+      else if(kind==='coin'){blip(1200,.07,'square',.09);setTimeout(function(){blip(1800,.14,'square',.09)},70)}
+      else if(kind==='hit'){blip(90,.18,'sawtooth',.22);blip(60,.25,'square',.12)}
+      else if(kind==='siren'){blip(820,.22,'sine',.07);setTimeout(function(){blip(620,.22,'sine',.07)},230)}
       else if(kind==='glitch'){for(var i=0;i<5;i++)(function(i){setTimeout(function(){blip(100+Math.random()*1600,.06,'sawtooth',.1)},i*60)})(i)}
     },
     ui:ui,
@@ -435,7 +440,7 @@ function closeModal(quiet){
   if(!quiet&&lastFocus&&lastFocus.focus)try{lastFocus.focus()}catch(e){}
 }
 document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'){if($('#cityOv'))closeCity();else if(game.on)gameSkip();else if($('#modal'))closeModal();else if(!$('#capri').hidden)capriClose()}
+  if(e.key==='Escape'){if(free){/* el modo libre gestiona Esc */}else if($('#cityOv'))closeCity();else if(game.on)gameSkip();else if($('#modal'))closeModal();else if(!$('#capri').hidden)capriClose()}
 });
 
 /* =====================================================================
@@ -553,7 +558,7 @@ function openCity(){
   try{
     city=DSA_CITY.create(stage,{reduced:RM,low:!FINE,zones:CITY_ZONES,found:cityFound,
       onSelect:function(t){var z=CITY_ZONES.filter(function(q){return q.id===t.id})[0];showCard(z)},
-      onFound:function(id,msg,n){if(cityFound.indexOf(id)<0)cityFound.push(id);store.set('dsa_city_found',JSON.stringify(cityFound));toast(msg);Snd.fx('ok');log('Señal oculta recuperada ('+n+'/4)')}});
+      onFound:function(id,msg,n){if(cityFound.indexOf(id)<0)cityFound.push(id);store.set('dsa_city_found',JSON.stringify(cityFound));toast(msg);if(window.DSA_SEC)DSA_SEC.addClue(id,msg);Snd.fx('ok');log('Señal oculta recuperada ('+n+'/4)')}});
   }catch(err){
     closeCity();log('WebGL no disponible: mapa 2D');openMap2D();return;
   }
@@ -612,7 +617,7 @@ async function safeCheck(){
   if(safe.busy||safe.open)return;
   if(safe.entry===SAFE.code){
     safe.busy=true;
-    lcdShow('good','ACCESS GRANTED');Snd.fx('ok');log('Caja fuerte desbloqueada');
+    lcdShow('good','ACCESS GRANTED');Snd.fx('ok');log('Caja fuerte desbloqueada');if(window.DSA_SEC)DSA_SEC.unlock('safe');
     $('#safeState').textContent='UNLOCKING';$('#safeState').style.color='var(--c1)';
     await sleep(700);
     $('#vault').classList.add('open');
@@ -826,6 +831,7 @@ async function capriClose(){
   try{fab.focus()}catch(e){}
 }
 function capriAnswer(q){
+  var sr=window.DSA_SEC&&DSA_SEC.capri(q);if(sr)return sr;
   var n=' '+norm(q).replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ')+' ',best=null,score=0;
   KB.forEach(function(e){
     var s=0;
@@ -1271,6 +1277,23 @@ renderHome();initSafe();initGame();renderGrid();renderEspecial();renderDocs();
 if(CONFIG.SEMESTER2_UNLOCKED){
   $('#tab2s').textContent='UNLOCKED // ACCESS GRANTED';$('#tab2').classList.remove('no');$('#tab2').classList.add('ok');
 }
+window.DSA_API={root:root,h:h,esc:esc,store:store,fx:function(k){Snd.fx(k)},log:log,openModal:openModal,closeModal:closeModal,snd:Snd,go:function(s){curSec='';go(s)},closeAll:function(){closeCity();closeModal(true)}};
+if(window.DSA_SEC)DSA_SEC.init(DSA_API);
+var free=null;
+function closeFree(){if(free){try{free.destroy()}catch(e){}free=null}Snd.scene(curSecScene())}
+function curSecScene(){return {inicio:'inicio',semestres:'semestre1',especial:'inicio',reflexion:'reflexion'}[(root.getAttribute('data-sec')||'inicio')]||'inicio'}
+function openFree(){
+  closeFree();closeCity();closeModal(true);
+  var dk=$('.dock'),wrap=h('div','');root.appendChild(wrap);
+  try{
+    free=DSA_GTA.create(wrap,{h:h,esc:esc,fx:function(k){Snd.fx(k)},store:store,snd:Snd,log:log,reduced:RM,capriSVG:capriSVG,openModal:openModal,closeModal:closeModal,
+      exit:function(){var w=wrap;closeFree();w.remove()}});
+    var g=wrap.querySelector('.gta');if(g)g.style.bottom=((dk&&dk.offsetHeight)||44)+'px';
+    window.DSA_FREE=free;log('Modo libre iniciado');
+  }catch(err){wrap.remove();free=null;log('Error en modo libre: '+err.message)}
+}
+$('#btnFree').addEventListener('click',function(){Snd.fx('glitch');openFree()});
+$('#btnSec').addEventListener('click',function(){Snd.fx('click');DSA_SEC.openPanel()});
 Snd.ui();
 go('inicio',true);
 log('Sistema listo');

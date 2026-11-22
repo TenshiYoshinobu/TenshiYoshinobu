@@ -141,10 +141,10 @@ function create(box,opt){
 
   /* señales ocultas (el sistema de secretos las usará más adelante) */
   var GL=[
-   {id:'g1',x:-91,z:52,y:2.2,msg:'Señal 1/4 recuperada en los Badlands. Fragmento: «22»'},
-   {id:'g2',x:104,z:96,y:2.4,msg:'Señal 2/4 recuperada junto al muelle de Pacifica. Fragmento: «443»'},
-   {id:'g3',x:52,z:-78,y:10,msg:'Señal 3/4 recuperada en una azotea de Watson. Fragmento: «SSH + HTTPS»'},
-   {id:'g4',x:0,z:0,y:16,msg:'Señal 4/4 recuperada en el núcleo neural. Fragmento: «El orden importa»'}
+   {id:'g1',x:-91,z:52,y:2.2,msg:'Señal 1/4 · Badlands. Mensaje interceptado: «QLJKWFLWB». Un emperador romano firmaba así sus cartas.'},
+   {id:'g2',x:104,z:96,y:2.4,msg:'Señal 2/4 · Pacifica. Paquete capturado: 01000110 01001001 01010010 01000101 01010111 01000001 01001100 01001100. Las máquinas solo cuentan hasta uno.'},
+   {id:'g3',x:52,z:-78,y:10,msg:'Señal 3/4 · Watson. Volcado de memoria: 43 49 46 52 41 44 4F. Base dieciséis.'},
+   {id:'g4',x:0,z:0,y:16,msg:'Señal 4/4 · Núcleo neural. Transmisión: .-. .- .. -.. — un punto, una raya, una voz del siglo XIX.'}
   ];
   var found={};(opt.found||[]).forEach(function(k){found[k]=true});
   function nFound(){return Object.keys(found).length}

@@ -88,3 +88,29 @@
 @media (prefers-reduced-motion:reduce){
   .sec .rv{animation:none;opacity:1;transform:none}.wipe{display:none}.ico-ring,.ico-scan,.ico-svg{animation:none}
 }
+
+/* ---------- secretos ---------- */
+.sec-note{margin:-10px 0 14px;font-family:var(--f-title);font-size:10px;letter-spacing:2px;color:rgba(var(--c3-rgb),.5)}
+.sec-note span{color:rgba(255,255,255,.22);letter-spacing:1px;font-family:var(--f-body);font-size:12px}
+.sx-intro{color:var(--mute);margin:6px 0 12px}
+.sx-count{font-family:var(--f-title);letter-spacing:2px;font-size:12px;margin-bottom:6px}.sx-count b{color:var(--c1)}.sx-count .ok{color:var(--ok)}
+.sx-bar{height:8px;margin-bottom:12px}.sx-bar i{display:block;height:100%;background:var(--c1);box-shadow:0 0 10px var(--c1);transition:width .6s}
+.sx-form{display:flex;gap:8px;flex-wrap:wrap}
+.sx-form input{flex:1;min-width:160px;background:#05070c;color:var(--txt);border:1px solid var(--c3);padding:10px 12px;font:600 16px var(--f-title);letter-spacing:2px;text-transform:uppercase}
+.sx-form input:focus{outline:0;border-color:var(--c1);box-shadow:0 0 14px rgba(var(--c1-rgb),.5)}
+.sx-msg{min-height:24px;margin:8px 0;font-size:15px}.sx-msg.ok{color:var(--ok)}.sx-msg.bad{color:var(--bad)}
+.sx-sig h4{font-family:var(--f-title);font-size:11px;letter-spacing:3px;color:var(--c3);margin:10px 0 4px}
+.sx-sig p{margin:0 0 6px;font-size:14px;padding-left:8px;border-left:2px solid var(--c2);word-break:break-word}.sx-sig .mut{color:var(--mute);border-color:transparent;padding:0}
+.sx-it{display:flex;gap:12px;padding:9px 0;border-top:1px solid rgba(var(--c3-rgb),.18);opacity:.7}.sx-it.on{opacity:1}
+.sx-n{font-family:var(--f-title);color:var(--c1);font-size:12px;min-width:22px}
+.sx-it b{font-family:var(--f-title);font-size:13px;letter-spacing:1px}.sx-it.on b{color:var(--ok)}
+.sx-it small{display:block;color:var(--mute);letter-spacing:1px;font-size:12px}
+.sx-it p{margin:4px 0;font-size:14px}.sx-it p.cl{color:var(--c3)}.sx-it em{display:block;font-size:12px;color:var(--c2);font-style:normal;letter-spacing:1px}
+.sec-toast{position:absolute;left:50%;top:70px;transform:translateX(-50%);z-index:120;padding:12px 22px;background:rgba(5,8,14,.95);border:1px solid var(--ok);box-shadow:0 0 30px rgba(57,255,136,.4);text-align:center;animation:holo .4s ease-out;display:grid;gap:2px}
+.sec-toast b{font-family:var(--f-title);letter-spacing:3px;color:var(--ok);font-size:12px}.sec-toast span{font-size:17px}.sec-toast small{color:var(--mute)}
+.sec-toast.out{opacity:0;transition:opacity .6s}
+
+/* los .btn que son <button> perdían el fondo frente a ".ds button" */
+.ds button.btn{color:#000;background:var(--c1);padding:11px 20px}
+.ds button.btn.alt{background:transparent;color:var(--c3)}
+.s2 button.btn{background:var(--bad);color:#000}

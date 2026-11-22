@@ -1,0 +1,90 @@
+/* =====================================================================
+   FX: iconos holográficos, transiciones, ambiente por sección, mapa 3D
+   ===================================================================== */
+
+/* ---------- iconos de los temas ---------- */
+.card-img.ico-wrap{--ia:var(--c3-rgb);position:relative;height:124px;display:grid;place-items:center;overflow:hidden;
+  background:radial-gradient(circle at 50% 55%,rgba(var(--ia),.22),rgba(0,0,0,.55) 70%),
+  linear-gradient(rgba(var(--ia),.08) 1px,transparent 1px) 0 0/100% 8px;
+  border:1px solid rgba(var(--ia),.35);transition:border-color .25s,box-shadow .25s}
+.card-img.ico-wrap::before,.card-img.ico-wrap::after{content:"";position:absolute;width:12px;height:12px;border:2px solid rgb(var(--ia));opacity:.8}
+.card-img.ico-wrap::before{left:4px;top:4px;border-right:0;border-bottom:0}
+.card-img.ico-wrap::after{right:4px;bottom:4px;border-left:0;border-top:0}
+.ico-ring{position:absolute;width:98px;height:98px;border-radius:50%;border:1px dashed rgba(var(--ia),.55);animation:icoSpin 14s linear infinite}
+.ico-ring::after{content:"";position:absolute;left:50%;top:-3px;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:rgb(var(--ia));box-shadow:0 0 8px rgb(var(--ia))}
+.ico-scan{position:absolute;left:0;right:0;height:26px;top:-30px;background:linear-gradient(transparent,rgba(var(--ia),.35),transparent);animation:icoScan 3.2s linear infinite;animation-delay:var(--d,0s);pointer-events:none}
+.ico-svg{position:relative;width:68px;height:68px;overflow:visible;filter:drop-shadow(0 0 6px rgba(var(--ia),.8));animation:icoFloat 4s ease-in-out infinite;animation-delay:var(--d,0s);transition:transform .3s}
+.ico-svg .a{fill:none;stroke:rgb(var(--ia));stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.ico-svg .b{fill:none;stroke:rgba(255,255,255,.85);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ico-svg .f{fill:rgba(var(--ia),.13)}
+.ico-svg .dot{fill:rgb(var(--ia));stroke:none;animation:icoBlink 1.8s steps(2) infinite}
+.ico-svg .dot2{fill:none;stroke:#39ff88;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.ico-svg .t{fill:rgb(var(--ia));font:700 9px Orbitron,monospace;letter-spacing:1px}
+.card:hover .card-img.ico-wrap{border-color:rgb(var(--ia));box-shadow:inset 0 0 26px rgba(var(--ia),.35),0 0 18px rgba(var(--ia),.35)}
+.card:hover .ico-svg{transform:scale(1.14) rotate(-3deg);animation:icoGlitch .55s steps(2) 1,icoFloat 4s ease-in-out .6s infinite}
+.card:hover .ico-ring{animation-duration:3s;border-style:solid}
+.card:hover .ico-scan{animation-duration:1.1s}
+@keyframes icoSpin{to{transform:rotate(360deg)}}
+@keyframes icoScan{to{top:130px}}
+@keyframes icoFloat{50%{transform:translateY(-4px)}}
+@keyframes icoBlink{50%{opacity:.25}}
+@keyframes icoGlitch{0%{transform:translate(0)}20%{transform:translate(-4px,1px) skewX(8deg);filter:drop-shadow(4px 0 #ff2a6d) drop-shadow(-4px 0 #00f0ff)}40%{transform:translate(4px,-1px) skewX(-6deg)}60%{transform:translate(-2px,0)}100%{transform:scale(1.14) rotate(-3deg)}}
+
+/* ---------- entradas escalonadas y transiciones de sección ---------- */
+.sec .rv{opacity:0;transform:translateY(16px);animation:rvIn .55s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i,0)*70ms + 120ms)}
+@keyframes rvIn{from{opacity:0;transform:translateY(16px) skewX(-2deg);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
+.main.tr{animation:none}
+.wipe{position:absolute;inset:0;z-index:60;pointer-events:none;background:linear-gradient(100deg,transparent 30%,rgba(var(--c1-rgb),.35) 48%,rgba(var(--c3-rgb),.5) 52%,transparent 70%);transform:translateX(-120%);mix-blend-mode:screen}
+.wipe.go{animation:wipe .55s cubic-bezier(.6,0,.3,1) 1}
+@keyframes wipe{to{transform:translateX(120%)}}
+.nav button{transition:transform .2s,color .2s,background .2s,box-shadow .2s}
+.nav button:hover{transform:translateY(-2px)}
+.nav button[aria-current="page"]{box-shadow:0 2px 0 var(--c1),0 8px 20px -8px var(--c1)}
+.sec-h.scr{animation:rgbin .5s steps(3) 1}
+
+/* ---------- ambiente por sección (luz y niebla de color) ---------- */
+.ds::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;opacity:.55;transition:background 1.2s;background:radial-gradient(ellipse at 15% 0,rgba(var(--c1-rgb),.14),transparent 55%)}
+.ds[data-sec="semestres"]::before{background:radial-gradient(ellipse at 85% 10%,rgba(var(--c3-rgb),.18),transparent 55%),radial-gradient(ellipse at 0 100%,rgba(var(--c1-rgb),.08),transparent 50%)}
+.ds[data-sec="especial"]::before{background:radial-gradient(ellipse at 50% 100%,rgba(255,140,30,.16),transparent 60%),radial-gradient(ellipse at 100% 0,rgba(var(--c1-rgb),.1),transparent 50%)}
+.ds[data-sec="reflexion"]::before{background:radial-gradient(ellipse at 50% 0,rgba(160,120,255,.2),transparent 60%),radial-gradient(ellipse at 50% 100%,rgba(0,229,255,.08),transparent 60%)}
+
+/* ---------- interacción ---------- */
+.card{transform-style:preserve-3d;transition:border-color .2s,background .2s,box-shadow .25s}
+.card.tilt{animation:none;transform:perspective(700px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-6px) scale(1.02)}
+.card:hover{box-shadow:0 14px 34px -14px rgba(var(--c1-rgb),.8)}
+.btn,.tbtn{position:relative;overflow:hidden}
+.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.55);transform:translate(-50%,-50%) scale(0);animation:rip .6s ease-out forwards}
+@keyframes rip{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.panel{transition:border-color .3s,box-shadow .3s}
+.panel:hover{border-color:rgba(var(--c1-rgb),.55);box-shadow:0 0 22px -6px rgba(var(--c1-rgb),.5)}
+.acc-c:not([hidden]){animation:accOpen .35s ease-out}
+@keyframes accOpen{from{opacity:0;transform:translateY(-6px);clip-path:inset(0 0 100% 0)}to{opacity:1;clip-path:inset(0)}}
+.modal-box{animation:holo .4s ease-out}
+
+/* ---------- mapa 3D ---------- */
+.city-ov{position:absolute;inset:0;z-index:85;background:#03040a;display:flex;flex-direction:column;animation:fade .3s}
+.city-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 12px;background:rgba(5,7,12,.92);border-bottom:1px solid var(--c3);z-index:3}
+.city-bar h2{font-family:var(--f-title);font-size:14px;letter-spacing:3px;color:var(--c1);margin:0 auto 0 0}
+.city-bar .tbtn[aria-pressed="true"]{background:var(--c3);color:#000}
+.city-stage{position:relative;flex:1;min-height:0;overflow:hidden}
+.city-cv{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;outline:0;cursor:grab}
+.city-cv:active{cursor:grabbing}
+.city-labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.city-lbl{position:absolute;left:0;top:0;pointer-events:auto;padding:5px 10px;background:rgba(5,7,12,.82);border:1px solid var(--c1);text-align:left;white-space:nowrap;transition:background .2s,box-shadow .2s;will-change:transform}
+.city-lbl b{display:block;font-family:var(--f-title);font-size:11px;letter-spacing:2px;color:var(--c1)}
+.city-lbl small{color:var(--mute);letter-spacing:1px;font-size:11px}
+.city-lbl:hover,.city-lbl.on{background:var(--c1);box-shadow:0 0 20px rgba(var(--c1-rgb),.8)}
+.city-lbl:hover *,.city-lbl.on *{color:#000}
+.city-lbl::after{content:"";position:absolute;left:50%;bottom:-9px;width:1px;height:9px;background:var(--c1)}
+.city-hud{position:absolute;left:10px;bottom:8px;font-family:var(--f-title);font-size:10px;letter-spacing:1px;color:var(--c3);text-shadow:0 0 6px #000;pointer-events:none;max-width:calc(100% - 20px)}
+.city-help{position:absolute;right:10px;top:8px;max-width:230px;font-size:13px;color:var(--mute);text-align:right;pointer-events:none;text-shadow:0 0 6px #000}
+.city-card{position:absolute;right:12px;bottom:12px;width:min(300px,calc(100% - 24px));padding:12px 14px;background:rgba(5,8,14,.9);border:1px solid var(--c1);box-shadow:0 0 24px rgba(var(--c1-rgb),.3);animation:holo .35s ease-out;z-index:4}
+.city-card .tag{font-family:var(--f-title);font-size:10px;letter-spacing:3px;color:var(--c3)}
+.city-card h3{font-family:var(--f-title);font-size:15px;letter-spacing:2px;margin:3px 0 6px;color:var(--c1)}
+.city-card p{margin:0 0 10px;font-size:15px}
+.city-toast{position:absolute;left:50%;top:14px;transform:translateX(-50%);z-index:5;max-width:min(520px,calc(100% - 24px));padding:10px 16px;background:rgba(5,8,14,.94);border:1px solid var(--ok);color:var(--ok);font-size:15px;text-align:center;box-shadow:0 0 22px rgba(57,255,136,.3);animation:holo .35s ease-out}
+@media (max-width:640px){.city-help{display:none}.city-card{left:12px;right:12px;width:auto}}
+
+@media (prefers-reduced-motion:reduce){
+  .sec .rv{animation:none;opacity:1;transform:none}.wipe{display:none}.ico-ring,.ico-scan,.ico-svg{animation:none}
+}

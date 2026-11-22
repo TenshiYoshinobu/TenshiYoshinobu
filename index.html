@@ -38,9 +38,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/fx.css">
-<link rel="stylesheet" href="css/gta.css">
+<link rel="stylesheet" href="css/style.css?v=4">
+<link rel="stylesheet" href="css/fx.css?v=4">
+<link rel="stylesheet" href="css/gta.css?v=4">
 </head>
 <body>
 <div class="ds has-cur" id="ds" data-theme="nightcity" data-cursor="netrunner">
@@ -213,13 +213,19 @@
   </div>
 </div>
 
-<script>window.DSA_IMAGES={usb:'assets/img/usb.webp',padlock:'assets/img/padlock.webp',handoff:'assets/img/handoff.webp',cable:'assets/img/cable.webp',scanner:'assets/img/scanner.webp'};</script>
-<script src="js/icons.js"></script>
-<script src="js/city.js"></script>
-<script src="js/secrets.js"></script>
-<script src="js/char.js"></script>
-<script src="js/hack.js"></script>
-<script src="js/gta.js"></script>
-<script src="js/main.js"></script>
+<script>
+/* Aviso visible si algún archivo falla (útil dentro de Google Sites, donde no hay consola) */
+(function(){var shown=0;function show(t){if(shown++>2)return;var d=document.createElement('div');d.style.cssText='position:fixed;left:8px;right:8px;bottom:50px;z-index:9999;background:#300;color:#fff;border:1px solid #f33;padding:8px 12px;font:13px Arial;cursor:pointer';d.textContent='Error en la web: '+t+'  (pulsa para ocultar)';d.onclick=function(){d.remove()};(document.body||document.documentElement).appendChild(d)}
+window.addEventListener('error',function(e){if(e.target&&e.target!==window&&(e.target.src||e.target.href)){show('no se pudo cargar '+(e.target.src||e.target.href))}else show((e.message||'error')+' ['+String(e.filename||'').split('/').pop()+':'+e.lineno+']')},true);
+window.addEventListener('load',function(){setTimeout(function(){var miss=['DSA_SEC','DSA_GTA','DSA_CHAR','DSA_HACK','DSA_CITY','DSA_ICONS'].filter(function(k){return !window[k]});if(miss.length)show('faltan archivos JS: '+miss.join(', '))},800)})})();
+</script>
+<script>window.DSA_IMAGES={usb:'assets/img/usb.webp?v=4',padlock:'assets/img/padlock.webp?v=4',handoff:'assets/img/handoff.webp?v=4',cable:'assets/img/cable.webp?v=4',scanner:'assets/img/scanner.webp?v=4'};</script>
+<script src="js/icons.js?v=4"></script>
+<script src="js/city.js?v=4"></script>
+<script src="js/secrets.js?v=4"></script>
+<script src="js/char.js?v=4"></script>
+<script src="js/hack.js?v=4"></script>
+<script src="js/gta.js?v=4"></script>
+<script src="js/main.js?v=4"></script>
 </body>
 </html>

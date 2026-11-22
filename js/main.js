@@ -77,6 +77,9 @@ var TOPICS=[
     evidencias:[] /* [{t:'Título',src:'URL de imagen'}] */};
 });
 
+/* Contenido académico (js/content.js): se mezcla sin pisar lo que ya hayas escrito aquí */
+if(window.DSA_CONTENT)TOPICS.forEach(function(t){var c=DSA_CONTENT[t.n];if(!c)return;for(var k in c){if(!(t.sections[k]&&t.sections[k].trim()))t.sections[k]=c[k]}});
+
 /* Temas del Semestre 2 (vacío hasta que los tengas) */
 var SEMESTER2_TOPICS=[];
 
@@ -91,6 +94,13 @@ var SECTION_DEFS=[
 
 /* Apartado Especial: añade más entradas copiando un bloque */
 var ENTRIES=[
+ {type:'VISITA',title:'Visita al servidor',img:'',panels:[
+  {t:'SUBIMOS A VERLO',x:'El profesor nos llevó arriba para ver el servidor en persona.'},
+  {t:'CÓMO FUNCIONA UN SERVIDOR',x:'Vimos cómo funciona un servidor y cómo es por dentro.'},
+  {t:'UN SERVIDOR PEQUEÑO',x:'El servidor era pequeño, y eso llamó la atención.'},
+  {t:'NECESITA AIRE',x:'Estaba muy encerrado y se sobrecalentaba mucho, así que necesitaba ventilación.'},
+  {t:'[ PENDIENTE ]',x:'Aquí se pueden añadir más detalles de la visita, una foto o lo que más te llamó la atención.'}
+ ]},
  {type:'CHARLA',title:'Charla: Adrián',img:'',paragraphs:[
   'En esta charla se abordó el tema de la Inteligencia Artificial (IA) y su funcionamiento. Para empezar, el ponente nos explicó cómo podemos identificarla en nuestro día a día, cuál es su verdadero significado y cómo ha ido evolucionando desde su creación. Además, exploramos conceptos fascinantes como el machine learning (aprendizaje automático) y las redes neuronales, entre otros. También profundizamos en la parte práctica: vimos cómo se programa este tipo de tecnología y comprendimos la lógica detrás de cada línea de código.',
   'Cabe recalcar que esta sesión me resultó especialmente interesante porque actualmente estoy desarrollando mi propia IA en casa. Aunque el proyecto sigue en sus fases iniciales (ya que voy aprendiendo sobre la marcha mientras la construyo), la charla me ayudó enormemente a detectar qué elementos me faltaban y a aclarar dudas que tenía pendientes. Ya he empezado a aplicar estos nuevos conocimientos en mi desarrollo. Aunque todavía se encuentra en etapa de pruebas, esta experiencia me ha dado mucha más confianza para plasmar mis ideas y me ha motivado a seguir investigando.'
@@ -121,6 +131,7 @@ var REFLEXIONES=[
    {h:'Conclusión de esta etapa académica',t:''}
   ]}
 ];
+if(window.DSA_REFLEX)REFLEXIONES.forEach(function(r){var c=DSA_REFLEX[r.id];if(!c)return;r.items.forEach(function(it){if(c[it.h]&&!(it.t&&it.t.trim()))it.t=c[it.h]})});
 
 /* Base de conocimientos de CAPRI. k = palabras clave ('=ia' exige palabra exacta).
    a = respuesta (o lista para elegir al azar). go = {sec, topic} para el botón. */
@@ -684,6 +695,7 @@ function openTopic(i,fromNav){
     if(s.key==='tecnico'&&t.evidencias&&t.evidencias.length){
       t.evidencias.forEach(function(ev){c.insertAdjacentHTML('beforeend','<p><b>'+esc(ev.t||'')+'</b><br><img src="'+esc(ev.src)+'" alt="'+esc(ev.t||'Evidencia')+'" style="max-width:100%;border:1px solid var(--c3)"></p>')});
     }
+    if(s.key==='tecnico'&&window.DSA_VIS&&DSA_VIS[t.n]){try{c.insertBefore(DSA_VIS[t.n](),c.firstChild)}catch(e){}}
     b.addEventListener('click',function(){
       var open=b.getAttribute('aria-expanded')==='true';
       b.setAttribute('aria-expanded',String(!open));c.hidden=open;b.lastChild.textContent=open?'+':'−';Snd.fx('click');
@@ -748,9 +760,16 @@ function renderEspecial(){
   });
   var list=$('#entries');list.innerHTML='';
   ENTRIES.filter(function(e){return espFilter==='TODAS'||e.type===espFilter}).forEach(function(e){
-    var a=h('article','entry');
-    a.innerHTML='<div class="entry-img">'+(e.img?artHTML(e.img):'<span>[ imagen pendiente ]</span>')+'</div>'+
-      '<div><span class="tag">'+esc(e.type)+'</span><h3>'+esc(e.title)+'</h3>'+e.paragraphs.map(function(p){return '<p>'+esc(p)+'</p>'}).join('')+'</div>';
+    var a=h('article','entry comic');
+    var panels=e.panels||e.paragraphs.map(function(p,i){return {t:i===0?'QUÉ SE EXPLICÓ':'MI EXPERIENCIA',x:p}});
+    a.innerHTML='<div class="cm-hero"><div class="entry-img">'+(e.img?artHTML(e.img):'<span>[ imagen pendiente ]</span>')+'</div><div><span class="tag">'+esc(e.type)+'</span><h3>'+esc(e.title)+'</h3><small>Pulsa una viñeta para desplegarla</small></div></div><div class="cm-grid"></div>';
+    var g=a.querySelector('.cm-grid');
+    panels.forEach(function(p,i){
+      var b=h('button','cm-p');b.type='button';b.setAttribute('aria-expanded','false');
+      b.innerHTML='<i>'+pad(i+1)+'</i><b>'+esc(p.t)+'</b><span>'+esc(p.x)+'</span>';
+      b.addEventListener('click',function(){var o=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!o));Snd.fx('click')});
+      g.appendChild(b);
+    });
     list.appendChild(a);
   });
 }

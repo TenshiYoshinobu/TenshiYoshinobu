@@ -154,3 +154,31 @@
 .ds button.arc-cur{position:absolute;right:16px;bottom:90px;z-index:110;max-width:300px;text-align:left;padding:10px 14px;background:rgba(5,8,14,.95);border:1px solid var(--c3);color:var(--txt);cursor:pointer;display:grid;gap:3px;font-family:var(--f-body);animation:holo .4s ease-out;box-shadow:0 0 20px rgba(var(--c3-rgb),.35)}
 .ds button.arc-cur b{font:600 11px var(--f-title);letter-spacing:2px;color:var(--c3)}.ds button.arc-cur span{font-size:14px}.ds button.arc-cur small{color:var(--mute);font-size:12px}
 .ds .msg.opts{display:flex;flex-wrap:wrap;gap:6px;background:none;border:0;padding:2px 0}
+
+/* ===== VISUALES POR TEMA + VIÑETAS ===== */
+.ds .vis{border:1px solid var(--c3);background:rgba(5,8,14,.75);padding:12px;margin:0 0 14px;box-shadow:0 0 18px rgba(var(--c3-rgb),.2)}
+.ds .vis-h{font:700 12px var(--f-title);letter-spacing:3px;color:var(--c3)}.ds .vis-n{color:var(--mute);font-size:13px;margin:4px 0 8px}
+.ds .vis-row{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.ds button.vis-b{padding:6px 10px;border:1px solid var(--c3);background:transparent;color:var(--txt);font:600 12px var(--f-body);cursor:pointer}
+.ds button.vis-b:hover,.ds button.vis-b:focus-visible{border-color:var(--c1);color:var(--c1)}
+.ds .vis-term{background:#02040a;color:#39ff88;padding:10px;margin:6px 0 0;min-height:70px;white-space:pre-wrap;font:13px/1.4 monospace;overflow:auto}
+.ds .vis-in{width:100%;box-sizing:border-box;background:#05070c;color:var(--txt);border:1px solid var(--c3);padding:6px 8px;font:15px var(--f-body)}
+.ds .vis-l{display:block;font:600 10px var(--f-title);letter-spacing:2px;color:var(--mute);margin:8px 0 3px}
+.ds .vis-k{display:block;margin:8px 0 2px;font:600 11px var(--f-title);color:var(--c1)}.ds .vis input[type=range]{width:100%}
+.ds .vis-out{font:700 18px monospace;letter-spacing:2px;color:var(--c1);padding:6px 0;word-break:break-all}
+.ds .vis-keys{display:flex;gap:10px;margin:8px 0}.ds .vis-key{flex:1;padding:14px 8px;text-align:center;white-space:pre-line;border:1px solid var(--mute);opacity:.55;transition:.25s;font:600 12px var(--f-title);letter-spacing:1px}
+.ds .vis-key.pub{color:var(--ok)}.ds .vis-key.priv{color:var(--bad)}.ds .vis-key.hot{opacity:1;box-shadow:0 0 18px currentColor;border-color:currentColor}
+.ds .vis-msg{margin:4px 0 0;min-height:2.6em}
+.ds .vis-chain{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:8px 0}
+.ds .vis-blk{border:1px solid var(--ok);padding:8px;display:grid;gap:4px;background:rgba(57,255,136,.05)}.ds .vis-blk.bad{border-color:var(--bad);background:rgba(255,56,96,.08)}
+.ds .vis-blk b{font:700 11px var(--f-title);letter-spacing:2px}.ds .vis-blk code{font-size:11px;color:var(--mute);word-break:break-all}.ds .vis-blk .h{color:var(--c1)}.ds .vis-blk.bad .h{color:var(--bad)}
+.ds .comic .cm-hero{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center;margin-bottom:10px}.ds .comic .cm-hero small{color:var(--mute)}
+.ds .cm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.ds button.cm-p{position:relative;text-align:left;padding:14px 14px 12px;background:rgba(5,8,14,.85);color:var(--txt);border:2px solid var(--c3);cursor:pointer;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));display:block;font-family:var(--f-body);transition:border-color .2s,box-shadow .2s}
+.ds button.cm-p:hover,.ds button.cm-p:focus-visible{border-color:var(--c1);box-shadow:0 0 16px rgba(var(--c1-rgb),.4)}
+.ds button.cm-p i{position:absolute;right:20px;top:6px;font:700 11px var(--f-title);color:var(--c2);font-style:normal}
+.ds button.cm-p b{display:block;font:700 12px var(--f-title);letter-spacing:2px;color:var(--c1);margin-bottom:6px}
+.ds button.cm-p span{display:block;font-size:15px;line-height:1.35;max-height:2.7em;overflow:hidden}
+.ds button.cm-p[aria-expanded=true]{grid-column:1/-1;border-color:var(--c1)}.ds button.cm-p[aria-expanded=true] span{max-height:none}
+@media(max-width:560px){.ds .comic .cm-hero{grid-template-columns:1fr}}
+.ds .entry.comic{display:block}.ds .comic .entry-img{min-height:0;height:110px}

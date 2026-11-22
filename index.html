@@ -38,9 +38,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=6">
-<link rel="stylesheet" href="css/fx.css?v=6">
-<link rel="stylesheet" href="css/gta.css?v=6">
+<link rel="stylesheet" href="css/style.css?v=8">
+<link rel="stylesheet" href="css/fx.css?v=8">
+<link rel="stylesheet" href="css/gta.css?v=8">
 </head>
 <body>
 <div class="ds has-cur" id="ds" data-theme="nightcity" data-cursor="netrunner">
@@ -220,14 +220,16 @@
 window.addEventListener('error',function(e){if(e.target&&e.target!==window&&(e.target.src||e.target.href)){if(/fonts\.g/.test(e.target.href||''))return;show('no se pudo cargar '+(e.target.src||e.target.href))}else show((e.message||'error')+' ['+String(e.filename||'').split('/').pop()+':'+e.lineno+']')},true);
 window.addEventListener('load',function(){setTimeout(function(){var miss=['DSA_SEC','DSA_GTA','DSA_CHAR','DSA_HACK','DSA_CITY','DSA_ICONS','DSA_ARC'].filter(function(k){return !window[k]});if(miss.length)show('faltan archivos JS: '+miss.join(', '))},800)})})();
 </script>
-<script>window.DSA_IMAGES={usb:'assets/img/usb.webp?v=6',padlock:'assets/img/padlock.webp?v=6',handoff:'assets/img/handoff.webp?v=6',cable:'assets/img/cable.webp?v=6',scanner:'assets/img/scanner.webp?v=6'};</script>
-<script src="js/icons.js?v=6"></script>
-<script src="js/city.js?v=6"></script>
-<script src="js/secrets.js?v=6"></script>
-<script src="js/archive.js?v=6"></script>
-<script src="js/char.js?v=6"></script>
-<script src="js/hack.js?v=6"></script>
-<script src="js/gta.js?v=6"></script>
-<script src="js/main.js?v=6"></script>
+<script>window.DSA_IMAGES={usb:'assets/img/usb.webp?v=8',padlock:'assets/img/padlock.webp?v=8',handoff:'assets/img/handoff.webp?v=8',cable:'assets/img/cable.webp?v=8',scanner:'assets/img/scanner.webp?v=8'};</script>
+<script src="js/icons.js?v=8"></script>
+<script src="js/city.js?v=8"></script>
+<script src="js/secrets.js?v=8"></script>
+<script src="js/archive.js?v=8"></script>
+<script src="js/char.js?v=8"></script>
+<script src="js/hack.js?v=8"></script>
+<script src="js/gta.js?v=8"></script>
+<script src="js/content.js?v=8"></script>
+<script src="js/visuals.js?v=8"></script>
+<script src="js/main.js?v=8"></script>
 </body>
 </html>

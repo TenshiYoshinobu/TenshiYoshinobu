@@ -7,6 +7,30 @@
    Cada bloque se separa con una línea en blanco.
    ===================================================================== */
 window.DSA_CONTENT={
+4:{
+intro:`Lynis es una herramienta de auditoría de seguridad para sistemas Linux y otros Unix. Revisa la configuración del equipo, comprueba cosas como servicios, permisos, usuarios, red y actualizaciones, y al final entrega un informe con advertencias, sugerencias y una puntuación.`,
+tecnico:`EL ÍNDICE Y LOS COLORES
+
+Al terminar la auditoría, Lynis muestra un índice de refuerzo (hardening index): una puntuación que resume cuánto está reforzado el sistema. Cuanto más alto, mejor configurado está. No es una garantía de seguridad, es una medida orientativa de qué se ha revisado y qué se cumple.
+
+Durante la auditoría, cada comprobación se muestra con un color para que se lea de un vistazo:
+
+Verde: la comprobación es correcta, no hay nada que corregir.
+
+Amarillo: hay algo mejorable o una sugerencia. No es un fallo grave, pero conviene revisarlo.
+
+Rojo: hay un problema o una advertencia que requiere atención.
+
+COMANDO BÁSICO (referencia general)
+
+lynis audit system. Ejecuta una auditoría completa del sistema. Suele ejecutarse con privilegios de administrador para poder revisar todo.
+
+[ A REVISAR ] Comprueba con tus apuntes qué puntuaciones del índice se consideraban buenas o malas en clase y qué comandos usasteis, para no afirmar nada que no se viera.`,
+experiencia:`En clase vimos, de forma técnica, qué significaba cada color que muestra Lynis (rojo, verde y amarillo) y qué es el índice que aparece al final de la auditoría.
+
+[ PENDIENTE ] Qué hicisteis exactamente con el programa y qué resultado obtuvisteis.`,
+impacto:`Una auditoría periódica ayuda a detectar configuraciones débiles antes de que las aproveche un atacante. Los colores permiten priorizar: primero lo rojo, después lo amarillo.`
+},
 9:{
 intro:`Un CPD (Centro de Procesamiento de Datos) es la instalación donde se alojan los servidores y equipos que almacenan y procesan la información de una organización, junto con los sistemas que los mantienen funcionando: alimentación eléctrica, refrigeración y seguridad.`,
 experiencia:`Además de la teoría y una práctica con Juan Carlos, el profesor nos llevó arriba a ver el servidor y cómo funciona uno de verdad. Me llamó la atención que era pequeño y que estaba muy encerrado: se sobrecalentaba mucho, así que necesitaba ventilación y mucho aire.
@@ -252,6 +276,14 @@ impacto:`Una buena estrategia combina redundancia para seguir funcionando y copi
    (resumen mensual de ciberseguridad, oct-nov 2026). Sin experiencias personales inventadas.
    La reflexión sobre gratitud queda pendiente: el artículo de Kairós no se pudo abrir. */
 window.DSA_REFLEX={
+gratitud:{
+'La importancia de reconocer los errores':`Creo que reconocer un error es el primer paso para poder corregirlo. Lo relaciono con lo que hemos visto en el ciclo: en un sistema, un fallo que no se admite ni se documenta se repite. En las personas pasa algo parecido, si no reconozco que me he equivocado, difícilmente voy a cambiar.
+
+[ BORRADOR ] No se ha podido leer el artículo de Kairós, así que este texto no se basa en él. Revísalo y cámbialo por tu propia opinión.`,
+'El valor del perdón y del crecimiento personal':`Pienso que dar las gracias y pedir perdón son gestos pequeños que cuidan las relaciones. Un agradecimiento sincero reconoce el esfuerzo de otra persona, y una disculpa bien hecha repara algo que se había roto. Creo que ninguna de las dos cosas debe hacerse por compromiso, sino porque realmente se siente.
+
+[ BORRADOR ] Redactado sin el artículo de Kairós y sin experiencias personales. Añade aquí tus propias vivencias si quieres.`
+},
 ciber:{
 'Importancia de la seguridad informática':`Lo que más me ha llamado la atención del artículo es la escala. Dos fallos en PHP, un lenguaje que sostiene buena parte de la web, bastaron para dejar sin servicio a bancos, aerolíneas, administraciones y medios de comunicación. Me hace pensar que la seguridad no es un lujo de empresas grandes: si una pieza pequeña y muy extendida falla, el efecto llega a todo el mundo.
 

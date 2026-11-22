@@ -491,6 +491,7 @@ function go(sec,quiet){
   if(!RM){main.classList.remove('tr');void main.offsetWidth;main.classList.add('tr')}
   root.setAttribute('data-sec',sec);
   wipeFx();
+  if(window.DSA_MOTION)DSA_MOTION.section(SECS[sec]);
   setTimeout(function(){
     $$('.sec').forEach(function(s){s.hidden=s.getAttribute('data-sec')!==sec});
     main.scrollTop=0;
@@ -1325,6 +1326,7 @@ if(CONFIG.SEMESTER2_UNLOCKED){
 }
 window.DSA_API={root:root,h:h,esc:esc,store:store,fx:function(k){Snd.fx(k)},log:log,openModal:openModal,closeModal:closeModal,snd:Snd,go:function(s){curSec='';go(s)},closeAll:function(){closeCity();closeModal(true)}};
 if(window.DSA_SEC)DSA_SEC.init(DSA_API);
+if(window.DSA_MOTION)DSA_MOTION.init(root,RM,FINE);
 if(window.DSA_ARC){DSA_ARC.init(DSA_API);var bA=$('#btnArc');if(bA)bA.addEventListener('click',function(){Snd.fx('click');DSA_ARC.open('inv')})}
 var free=null;
 function closeFree(){if(free){try{free.destroy()}catch(e){}free=null}Snd.scene(curSecScene())}

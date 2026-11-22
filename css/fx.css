@@ -182,3 +182,30 @@
 .ds button.cm-p[aria-expanded=true]{grid-column:1/-1;border-color:var(--c1)}.ds button.cm-p[aria-expanded=true] span{max-height:none}
 @media(max-width:560px){.ds .comic .cm-hero{grid-template-columns:1fr}}
 .ds .entry.comic{display:block}.ds .comic .entry-img{min-height:0;height:110px}
+
+/* ===== MOTION (motion.js) ===== */
+.ds .mo-ban{position:absolute;left:0;right:0;top:34%;z-index:90;pointer-events:none;display:grid;justify-items:center;gap:6px;opacity:0;padding:16px 0;background:linear-gradient(90deg,transparent,rgba(3,4,8,.92) 20%,rgba(3,4,8,.92) 80%,transparent);border-top:1px solid var(--c1);border-bottom:1px solid var(--c3)}
+.ds .mo-ban.on{animation:moBan .9s cubic-bezier(.2,.7,.2,1) 1}
+.ds .mo-t{font:700 clamp(14px,2.4vw,22px) var(--f-title);letter-spacing:5px;color:var(--c1);text-shadow:0 0 14px var(--c1)}
+.ds .mo-s{font:600 11px var(--f-title);letter-spacing:3px;color:var(--mute)}
+.ds .mo-b{width:min(320px,70%);height:3px;background:rgba(255,255,255,.1)}.ds .mo-b i{display:block;height:100%;background:var(--c3);box-shadow:0 0 10px var(--c3);transform-origin:left;animation:moBar .75s ease-out 1}
+.ds .mo-ban.on .mo-b i{animation:moBar .75s ease-out 1}
+@keyframes moBan{0%{opacity:0;transform:scaleY(.1)}15%{opacity:1;transform:scaleY(1)}80%{opacity:1}100%{opacity:0;transform:scaleY(.2)}}
+@keyframes moBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.ds .mo-p{position:absolute;width:5px;height:5px;margin:-2px;z-index:200;pointer-events:none;animation:moP .55s ease-out forwards}
+@keyframes moP{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+.ds .mo-scan{position:absolute;left:0;right:0;top:0;height:60px;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(var(--c1-rgb),.35),transparent);animation:moScan .8s ease-in 1 forwards}
+@keyframes moScan{from{transform:translateY(-60px)}to{transform:translateY(560px);opacity:0}}
+.ds .card,.ds .doc-card,.ds .panel,.ds .entry{--mx:50%;--my:50%}
+.ds .card::after,.ds .doc-card::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;background:radial-gradient(180px circle at var(--mx) var(--my),rgba(var(--c1-rgb),.22),transparent 70%)}
+.ds .card:hover::after,.ds .doc-card:hover::after{opacity:1}
+.ds .tbtn.mo-mag,.ds .nav button.mo-mag{transform:translate(var(--tx),var(--ty))}
+.ds .card-img,.ds .hero-art{transform:translate(calc(var(--px,0)*-6px),calc(var(--py,0)*-6px));transition:transform .25s ease-out}
+.ds .tbtn,.ds .btn{position:relative;overflow:hidden}
+.ds .tbtn::before,.ds .btn::before{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-20deg);pointer-events:none}
+.ds .tbtn:hover::before,.ds .btn:hover::before{animation:moShine .6s ease-out 1}
+@keyframes moShine{to{left:130%}}
+.ds .acc-b{transition:background .2s,padding-left .2s}.ds .acc-b:hover{padding-left:calc(1em + 6px)}
+.ds .nav button[aria-current=page]{animation:moNav 2.4s ease-in-out infinite}
+@keyframes moNav{50%{box-shadow:0 0 18px rgba(var(--c1-rgb),.55)}}
+@media (prefers-reduced-motion:reduce){.ds .mo-ban,.ds .mo-p,.ds .mo-scan{display:none}.ds .nav button[aria-current=page]{animation:none}}

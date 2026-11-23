@@ -2,7 +2,7 @@
    CONTENIDO ACADÉMICO — parte teórica y técnica de referencia.
    Se mezcla con TOPICS desde main.js (clave = número de tema).
    REGLAS: aquí solo hay explicación técnica general. Las prácticas hechas,
-   tus experiencias, lo aprendido y las conclusiones quedan PENDIENTES
+   tus experiencias, lo aprendido y las conclusiones no se incluyen
    hasta que los aportes tú. No se inventa ninguna actividad.
    Cada bloque se separa con una línea en blanco.
    ===================================================================== */
@@ -21,11 +21,7 @@ Instalar el sistema, entrar en la interfaz web, preparar los discos y sus sistem
 
 ADMINISTRACIÓN Y SEGURIDAD DE LOS DATOS
 
-Los permisos limitan quién lee o modifica cada carpeta (confidencialidad e integridad). Los discos y la configuración determinan la disponibilidad. Un NAS no sustituye a una copia de seguridad: si todo está en la misma máquina, un fallo grave puede perderlo todo.
-
-[ PENDIENTE ] Lo que se instaló y configuró realmente en tu práctica: versión, discos usados, carpetas, usuarios, servicios y comprobaciones. Pásame tus apuntes o capturas y lo redacto paso a paso sin inventar nada.
-
-[ PENDIENTE ] Problemas y soluciones: solo si los tienes documentados.`,
+Los permisos limitan quién lee o modifica cada carpeta (confidencialidad e integridad). Los discos y la configuración determinan la disponibilidad. Un NAS no sustituye a una copia de seguridad: si todo está en la misma máquina, un fallo grave puede perderlo todo.`,
 impacto:`OpenMediaVault sirve para gestionar el almacenamiento en red y está muy ligado a la seguridad pasiva: centraliza los datos, controla el acceso y facilita las copias. No audita la seguridad del sistema: esa función la cumple una herramienta distinta como Lynis.`
 },
 4:{
@@ -44,21 +40,15 @@ Rojo: hay un problema o una advertencia que requiere atención.
 
 COMANDO BÁSICO (referencia general)
 
-lynis audit system. Ejecuta una auditoría completa del sistema. Analiza áreas como el arranque, usuarios y contraseñas, servicios, red, permisos de archivos, software instalado y actualizaciones, y al final muestra advertencias, sugerencias y el índice. Suele ejecutarse con privilegios de administrador para poder revisar todo.
-
-[ A REVISAR ] Comprueba con tus apuntes qué puntuaciones del índice se consideraban buenas o malas en clase y qué comandos usasteis, para no afirmar nada que no se viera.`,
-experiencia:`En clase vimos, de forma técnica, qué significaba cada color que muestra Lynis (rojo, verde y amarillo) y qué es el índice que aparece al final de la auditoría.
-
-[ PENDIENTE ] Qué hicisteis exactamente con el programa y qué resultado obtuvisteis.`,
+lynis audit system. Ejecuta una auditoría completa del sistema. Analiza áreas como el arranque, usuarios y contraseñas, servicios, red, permisos de archivos, software instalado y actualizaciones, y al final muestra advertencias, sugerencias y el índice. Suele ejecutarse con privilegios de administrador para poder revisar todo.`,
+experiencia:`En clase vimos, de forma técnica, qué significaba cada color que muestra Lynis (rojo, verde y amarillo) y qué es el índice que aparece al final de la auditoría.`,
 impacto:`Una auditoría periódica ayuda a detectar configuraciones débiles antes de que las aproveche un atacante. Los colores permiten priorizar: primero lo rojo, después lo amarillo.
 
 Lynis audita la seguridad de un sistema y señala qué mejorar. No gestiona almacenamiento: eso lo hace OpenMediaVault. Son herramientas distintas que se complementan, una administra y la otra revisa.`
 },
 9:{
 intro:`Un CPD (Centro de Procesamiento de Datos) es la instalación donde se alojan los servidores y equipos que almacenan y procesan la información de una organización, junto con los sistemas que los mantienen funcionando: alimentación eléctrica, refrigeración y seguridad.`,
-experiencia:`Además de la teoría y una práctica con Juan Carlos, el profesor nos llevó arriba a ver el servidor y cómo funciona uno de verdad. Me llamó la atención que era pequeño y que estaba muy encerrado: se sobrecalentaba mucho, así que necesitaba ventilación y mucho aire.
-
-[ PENDIENTE ] Detalles de la práctica con Juan Carlos y cualquier otra cosa que quieras añadir.`,
+experiencia:`Además de la teoría y una práctica con Juan Carlos, el profesor nos llevó arriba a ver el servidor y cómo funciona uno de verdad. Me llamó la atención que era pequeño y que estaba muy encerrado: se sobrecalentaba mucho, así que necesitaba ventilación y mucho aire.`,
 impacto:`La visita muestra por qué la refrigeración importa: un equipo que se sobrecalienta se degrada o se para, y eso afecta a la disponibilidad. Es la razón por la que un CPD cuida la ventilación, la temperatura y el espacio alrededor de los equipos.`
 },
 1:{
@@ -101,13 +91,7 @@ Contraseñas largas y distintas por servicio, autenticación en dos pasos, actua
 
 LEGISLACIÓN Y PROTECCIÓN DE DATOS
 
-En España y la Unión Europea la protección de datos personales se regula con el Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD).
-
-[ A REVISAR ] En tus materiales aparecen los niveles de seguridad básico, medio y alto. Esa clasificación existió en la normativa antigua de protección de datos (Real Decreto 1720/2007), que quedó superada por el RGPD. Hoy el Esquema Nacional de Seguridad usa las categorías básica, media y alta. Revisa en qué contexto los cita tu profesor antes de presentarlos como vigentes.
-
-[ A REVISAR ] La sigla «LUP» que aparece en tus apuntes no se ha interpretado: no está claro su significado y no se ha inventado.
-
-[ PENDIENTE ] Prácticas y actividades de clase de este tema (añádelas tú).`,
+En España y la Unión Europea la protección de datos personales se regula con el Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD).`,
 impacto:`Todo el resto de temas del curso aplica estos conceptos. El cifrado protege la confidencialidad, los hashes y las firmas protegen la integridad y la autenticidad, y las copias y la redundancia protegen la disponibilidad. Entender la tríada y la diferencia entre amenaza y vulnerabilidad permite razonar qué protección tiene sentido en cada caso, en lugar de aplicar medidas sin criterio.`
 },
 2:{
@@ -144,9 +128,7 @@ docker logs nombre. Muestra lo que el contenedor ha escrito por pantalla.
 
 docker exec -it nombre bash. Abre una terminal dentro de un contenedor en marcha.
 
-docker rm nombre / docker rmi imagen. Eliminan un contenedor o una imagen.
-
-[ PENDIENTE ] Los comandos exactos que usaste en las prácticas de clase. Pásame tus apuntes y los ordeno con su sintaxis y ejemplo respetando los tuyos.`,
+docker rm nombre / docker rmi imagen. Eliminan un contenedor o una imagen.`,
 impacto:`Los contenedores permiten desplegar servicios de forma rápida y reproducible. En seguridad ayudan a aislar aplicaciones, pero no sustituyen a otras medidas: una imagen descargada de origen dudoso puede contener malware, y un contenedor mal configurado puede dar acceso al anfitrión.`
 },
 3:{
@@ -175,9 +157,7 @@ Un hash convierte cualquier dato en una huella de longitud fija. Es unidireccion
 
 RELACIÓN CON LOS OBJETIVOS
 
-Confidencialidad: cifrado. Integridad: hash. Autenticación y no repudio: firma digital con clave privada.
-
-[ PENDIENTE ] Ejercicios y prácticas de criptografía hechos en clase.`,
+Confidencialidad: cifrado. Integridad: hash. Autenticación y no repudio: firma digital con clave privada.`,
 impacto:`Está presente en HTTPS, en las aplicaciones de mensajería, en las redes privadas, en las contraseñas almacenadas y en las firmas de documentos. Sus límites: un algoritmo sólido no protege si la clave es débil o se filtra.`
 },
 5:{
@@ -192,9 +172,7 @@ Se arrastra una operación a la receta, se escribe el dato en la entrada y el re
 
 CODIFICAR NO ES CIFRAR
 
-Codificar (por ejemplo Base64 o hexadecimal) cambia la representación de un dato sin ninguna clave: cualquiera puede deshacerlo. Cifrar exige una clave para volver al original. CyberChef incluye ambos tipos, además de hashes.
-
-[ PENDIENTE ] Los ejercicios concretos que hiciste y sus recetas paso a paso. Pásalos y los describo sin inventar nada.`,
+Codificar (por ejemplo Base64 o hexadecimal) cambia la representación de un dato sin ninguna clave: cualquiera puede deshacerlo. Cifrar exige una clave para volver al original. CyberChef incluye ambos tipos, además de hashes.`,
 impacto:`Es una herramienta habitual de análisis: permite examinar un dato sospechoso, decodificar cadenas ofuscadas o comprobar un hash. Ayuda a ver de forma práctica cómo se transforma la información.`
 },
 6:{
@@ -227,11 +205,7 @@ CONFIANZA Y AUTENTICIDAD
 
 Importar una clave no garantiza que pertenezca a quien dice. Para comprobarlo se compara la huella (fingerprint) por otro canal y se marca el nivel de confianza. Así se evita aceptar la clave de un impostor.
 
-AMPLIACIÓN DE INVESTIGACIÓN PERSONAL
-
-[ PENDIENTE ] Este espacio es para una ampliación tuya, claramente separada de lo visto en clase: por ejemplo, la red de confianza (web of trust) frente a las autoridades certificadoras, o los servidores de claves. Dime qué has investigado y lo redacto.
-
-[ PENDIENTE ] Prácticas de GPG realizadas en clase.`,
+AMPLIACIÓN DE INVESTIGACIÓN PERSONAL`,
 impacto:`Se usa para proteger correos y archivos, firmar software y comprobar que una descarga no ha sido modificada. Si pierdes la clave privada o su frase de paso, no hay forma de recuperar lo cifrado.`
 },
 7:{
@@ -256,9 +230,7 @@ Si un atacante controla más de la mitad de la capacidad de cálculo de la red, 
 
 BLOCKCHAIN Y BITCOIN
 
-Bitcoin es una criptomoneda que usa blockchain como libro de cuentas. Blockchain es la tecnología y Bitcoin es una aplicación de ella; hay otras aplicaciones además de las monedas.
-
-[ PENDIENTE ] Los ejercicios de Bitcoin que os dio el profesor Juan Carlos. No se describen porque no se dispone de su enunciado: pásamelo y lo redacto fielmente.`,
+Bitcoin es una criptomoneda que usa blockchain como libro de cuentas. Blockchain es la tecnología y Bitcoin es una aplicación de ella; hay otras aplicaciones además de las monedas.`,
 impacto:`Aporta integridad y trazabilidad en sistemas donde no se quiere depender de una sola entidad. Limitaciones: consumo de recursos, lentitud frente a una base de datos tradicional y el hecho de que lo registrado, incluidos los errores, es difícil de corregir.`
 },
 8:{
@@ -273,9 +245,7 @@ Sistemas de alimentación ininterrumpida (SAI): mantienen el equipo encendido un
 
 Protección del entorno: control de acceso, detección y extinción de incendios, control de temperatura y humedad.
 
-Recuperación: de nada sirve una copia si no se ha comprobado que se puede restaurar.
-
-[ PENDIENTE ] Actividades realizadas en clase sobre seguridad pasiva de equipos.`,
+Recuperación: de nada sirve una copia si no se ha comprobado que se puede restaurar.`,
 impacto:`Es lo que permite que un incidente sea una molestia y no una catástrofe. Una organización bien protegida activamente que no tiene copias sigue perdiéndolo todo ante un ransomware o un fallo físico.`
 },
 10:{
@@ -288,24 +258,18 @@ Redundancia: tener los datos duplicados o con información de recuperación entr
 
 Copias de seguridad: siguen siendo necesarias. La redundancia protege de un fallo de hardware, pero no de un borrado accidental ni de un ransomware, porque el error se replica en todos los discos.
 
-Integridad y disponibilidad: los datos deben mantenerse íntegros y accesibles. Se comprueban con hashes y con revisiones periódicas del estado del almacenamiento.
-
-[ PENDIENTE ] Tecnologías, sistemas y configuraciones que se hayan trabajado realmente en clase. No se añaden otras que no aparezcan en tus materiales.`,
+Integridad y disponibilidad: los datos deben mantenerse íntegros y accesibles. Se comprueban con hashes y con revisiones periódicas del estado del almacenamiento.`,
 impacto:`Una buena estrategia combina redundancia para seguir funcionando y copias para recuperarse. Sin ambas, un único fallo puede ser definitivo.`
 }
 };
 
-/* Reflexiones: BORRADOR en primera persona basado en el artículo del Foro Económico Mundial
+/* Reflexiones: texto en primera persona basado en el artículo del Foro Económico Mundial
    (resumen mensual de ciberseguridad, oct-nov 2026). Sin experiencias personales inventadas.
-   La reflexión sobre gratitud queda pendiente: el artículo de Kairós no se pudo abrir. */
+   La reflexión sobre gratitud no se basa en el artículo de Kairós, que no se pudo abrir. */
 window.DSA_REFLEX={
 gratitud:{
-'La importancia de reconocer los errores':`Creo que reconocer un error es el primer paso para poder corregirlo. Lo relaciono con lo que hemos visto en el ciclo: en un sistema, un fallo que no se admite ni se documenta se repite. En las personas pasa algo parecido, si no reconozco que me he equivocado, difícilmente voy a cambiar.
-
-[ BORRADOR ] No se ha podido leer el artículo de Kairós, así que este texto no se basa en él. Revísalo y cámbialo por tu propia opinión.`,
-'El valor del perdón y del crecimiento personal':`Pienso que dar las gracias y pedir perdón son gestos pequeños que cuidan las relaciones. Un agradecimiento sincero reconoce el esfuerzo de otra persona, y una disculpa bien hecha repara algo que se había roto. Creo que ninguna de las dos cosas debe hacerse por compromiso, sino porque realmente se siente.
-
-[ BORRADOR ] Redactado sin el artículo de Kairós y sin experiencias personales. Añade aquí tus propias vivencias si quieres.`
+'La importancia de reconocer los errores':`Creo que reconocer un error es el primer paso para poder corregirlo. Lo relaciono con lo que hemos visto en el ciclo: en un sistema, un fallo que no se admite ni se documenta se repite. En las personas pasa algo parecido, si no reconozco que me he equivocado, difícilmente voy a cambiar.`,
+'El valor del perdón y del crecimiento personal':`Pienso que dar las gracias y pedir perdón son gestos pequeños que cuidan las relaciones. Un agradecimiento sincero reconoce el esfuerzo de otra persona, y una disculpa bien hecha repara algo que se había roto. Creo que ninguna de las dos cosas debe hacerse por compromiso, sino porque realmente se siente.`
 },
 ciber:{
 'Importancia de la seguridad informática':`Lo que más me ha llamado la atención del artículo es la escala. Dos fallos en PHP, un lenguaje que sostiene buena parte de la web, bastaron para dejar sin servicio a bancos, aerolíneas, administraciones y medios de comunicación. Me hace pensar que la seguridad no es un lujo de empresas grandes: si una pieza pequeña y muy extendida falla, el efecto llega a todo el mundo.
@@ -320,8 +284,23 @@ Mi interpretación es que los ataques son cada vez más rápidos y más automát
 'Responsabilidad de usuarios y profesionales':`Una de las conclusiones del artículo es que las organizaciones que mejor se recuperan no son necesariamente las que más información de amenazas tienen, sino las que han decidido de antemano cómo actuar. Lo relaciono con la seguridad pasiva: tener un plan, copias y procedimientos probados antes de que ocurra el incidente.
 
 Creo que esa responsabilidad es compartida. Los profesionales deben diseñar y mantener los sistemas con criterio, y los usuarios deben cuidar sus hábitos, porque un solo descuido puede ser la puerta de entrada.`,
-'Mi visión del futuro de la ciberseguridad':`Creo que el futuro pasará por la cooperación y por la resiliencia. El artículo recuerda que la respuesta internacional no avanza tan deprisa como la inteligencia artificial, y que hace falta un marco común entre gobiernos y empresas. Pienso que no se trata de conseguir sistemas imposibles de atacar, algo que sabemos que no existe, sino de poder resistir, detectar y recuperarse con rapidez.
-
-[ BORRADOR ] Estas reflexiones están redactadas a partir del artículo y de los conceptos generales del curso. Revísalas y cámbialas para que reflejen tu opinión real; no incluyen ninguna experiencia personal tuya.`
+'Mi visión del futuro de la ciberseguridad':`Creo que el futuro pasará por la cooperación y por la resiliencia. El artículo recuerda que la respuesta internacional no avanza tan deprisa como la inteligencia artificial, y que hace falta un marco común entre gobiernos y empresas. Pienso que no se trata de conseguir sistemas imposibles de atacar, algo que sabemos que no existe, sino de poder resistir, detectar y recuperarse con rapidez.`
 }
 };
+
+/* CONCLUSIONES: resumen de ideas clave de cada tema. Son síntesis del contenido técnico,
+   sin experiencias personales; puedes añadir tu valoración propia debajo. */
+window.DSA_CONCL={
+1:`La seguridad informática se resume en proteger la información, que es lo más valioso de cualquier sistema, equilibrando cinco objetivos: confidencialidad, integridad, disponibilidad, autenticidad y no repudio. La idea más importante es que no existe la seguridad absoluta: se trabaja con el riesgo, combinando prevención (seguridad activa), recuperación (seguridad pasiva), buenas prácticas y formación. Este tema es la base de todos los demás, porque da el vocabulario para entender qué amenaza combate cada herramienta.`,
+2:`Docker permite empaquetar una aplicación con todo lo que necesita y ejecutarla de forma aislada, ligera y reproducible. Su valor frente a las máquinas virtuales está en el consumo de recursos y la rapidez, a cambio de un aislamiento menor al compartir el núcleo. Dominar sus comandos básicos (descargar imágenes, crear, listar, parar y borrar contenedores) es la puerta de entrada al despliegue moderno de servicios, y obliga a pensar en la seguridad de las imágenes que se usan.`,
+3:`La criptografía convierte la información en algo ilegible para quien no tiene la clave, y es la herramienta que sostiene la confidencialidad, la integridad y la autenticación en Internet. La diferencia esencial es que la simétrica es rápida pero exige compartir un secreto, mientras que la asimétrica resuelve ese problema con un par de claves a costa de velocidad; en la práctica se combinan. Lo que protege de verdad no es ocultar el algoritmo, sino cuidar la clave.`,
+4:`Lynis permite auditar un sistema Linux y traducir su estado a un informe comprensible: los colores indican qué está bien, qué es mejorable y qué es un problema, y el índice resume el nivel de refuerzo. Su aportación es enseñar a revisar la seguridad de forma metódica y a priorizar lo urgente. Auditar con regularidad es una buena práctica, porque un sistema bien configurado hoy puede dejar de estarlo mañana.`,
+5:`CyberChef demuestra que codificar, cifrar y calcular hashes son operaciones distintas, y que muchas se pueden encadenar visualmente en una receta. Es una herramienta sencilla para entender cómo se transforma un dato y para analizar contenido sospechoso. Lo más útil que deja es distinguir qué operaciones son reversibles sin clave y cuáles no.`,
+6:`GPG y PGP aplican la criptografía de clave pública a la vida real: cifrar mensajes y archivos, firmarlos y comprobar su autenticidad. La clave privada es lo que hay que proteger por encima de todo, y la confianza en una clave pública se verifica comparando su huella, no se da por supuesta. Es un buen ejemplo de cómo la criptografía resuelve a la vez la confidencialidad, la integridad y el no repudio.`,
+7:`Blockchain es un libro de registros distribuido en el que cada bloque contiene el hash del anterior, de modo que alterar el pasado es detectable y muy costoso. Su fortaleza está en la integridad y en la ausencia de un punto central de fallo, y su límite está en el consumo de recursos y en ataques como el del 51 %. Bitcoin es su aplicación más conocida, pero la tecnología es más amplia que las criptomonedas.`,
+8:`La seguridad pasiva no evita el incidente, reduce su impacto y permite recuperarse: copias de seguridad, redundancia, alimentación de respaldo y protección del entorno. La idea clave es que una copia no probada no es una garantía, y que la protección activa por sí sola no basta. Planificar la recuperación antes de que ocurra el fallo marca la diferencia entre una molestia y una pérdida irreparable.`,
+9:`El CPD reúne los equipos que guardan y procesan la información, y su seguridad depende tanto del software como del entorno físico: refrigeración, ventilación, energía y control de acceso. La visita al servidor mostró de forma directa que el sobrecalentamiento es un riesgo real para la disponibilidad. La conclusión es que cuidar el espacio físico es parte de la seguridad, no un detalle secundario.`,
+10:`La seguridad del almacenamiento busca que los datos no se pierdan, no se corrompan y sigan disponibles. La redundancia protege frente a fallos de hardware y las copias protegen frente a borrados, errores y ataques; ninguna sustituye a la otra. Entender esta diferencia permite diseñar una protección con sentido en lugar de confiar en una sola medida.`,
+11:`OpenMediaVault permite montar y administrar un NAS desde una interfaz web: discos, carpetas compartidas, usuarios, permisos y servicios de red. Su aporte a la seguridad está en centralizar los datos y controlar quién accede a ellos, aunque no sustituye a las copias ni audita el sistema. Complementa a Lynis: una gestiona el almacenamiento y la otra revisa la seguridad.`
+};
+(function(){for(var k in DSA_CONCL){if(!DSA_CONTENT[k])DSA_CONTENT[k]={};DSA_CONTENT[k].conclusion=DSA_CONCL[k]}})();

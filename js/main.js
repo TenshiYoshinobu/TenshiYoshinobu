@@ -8,7 +8,7 @@
 var CONFIG={
   SEMESTER2_UNLOCKED:false,          // pon true para desbloquear el semestre 2
   DEFAULT_LEVEL:'medio-basico',      // nivel por defecto de los temas
-  EXPERIENCIA:'[ PENDIENTE ] Aquí irá tu experiencia personal: cómo ha evolucionado tu aprendizaje durante el curso.',
+  EXPERIENCIA:'Este curso hemos trabajado conceptos de seguridad, Docker, criptografía (con GPG y PGP), Lynis, CyberChef, blockchain, seguridad pasiva de equipos y de almacenamiento, el CPD y OpenMediaVault. Además, el profesor nos llevó a ver el servidor en persona y asistimos a una charla de Adrián sobre inteligencia artificial.',
   SAFE_FINAL_MESSAGE:'[ FRAGMENTO RECUPERADO ] Aquí irá tu mensaje especial sobre tu experiencia personal. Edita CONFIG.SAFE_FINAL_MESSAGE.',
   ESPECIAL_INTRO:'Este espacio ha sido creado con el propósito de recopilar y compartir los momentos más significativos de nuestro recorrido. A lo largo de esta sección, abordaremos diversas experiencias que enriquecen nuestra formación, tales como charlas informativas, salidas culturales o educativas y las distintas prácticas que hemos llevado a cabo. De este modo, todo el aprendizaje y las vivencias adquiridas quedarán debidamente documentados, sirviendo como un registro visual y escrito de nuestra evolución.',
   ESPECIAL_INTRO_IMG:'usb',          // clave de imagen (usb, padlock, handoff, cable, scanner) o URL
@@ -57,7 +57,7 @@ var SAFE={
 var LEVELS={'basico':{l:'BÁSICO',n:1},'medio-basico':{l:'MEDIO-BÁSICO',n:2},'medio':{l:'MEDIO',n:3},'avanzado':{l:'AVANZADO',n:4}};
 
 /* Los 11 temas del Semestre 1, en el orden de tu página.
-   Rellena las 6 secciones con tu texto (si están vacías se muestra "PENDIENTE").
+   Rellena las 6 secciones con tu texto (las que estén vacías no se muestran).
    img: URL de tu ilustración (opcional). level: cambia el nivel de cada tema.  */
 var TOPICS=[
  {name:'Conceptos sobre Seguridad',icon:'🛡',desc:'Bases de la seguridad informática: qué protegemos y de qué.'},
@@ -98,8 +98,7 @@ var ENTRIES=[
   {t:'SUBIMOS A VERLO',x:'El profesor nos llevó arriba para ver el servidor en persona.'},
   {t:'CÓMO FUNCIONA UN SERVIDOR',x:'Vimos cómo funciona un servidor y cómo es por dentro.'},
   {t:'UN SERVIDOR PEQUEÑO',x:'El servidor era pequeño, y eso llamó la atención.'},
-  {t:'NECESITA AIRE',x:'Estaba muy encerrado y se sobrecalentaba mucho, así que necesitaba ventilación.'},
-  {t:'[ PENDIENTE ]',x:'Aquí se pueden añadir más detalles de la visita, una foto o lo que más te llamó la atención.'}
+  {t:'NECESITA AIRE',x:'Estaba muy encerrado y se sobrecalentaba mucho, así que necesitaba ventilación.'}
  ]},
  {type:'CHARLA',title:'Charla: Adrián',img:'',paragraphs:[
   'En esta charla se abordó el tema de la Inteligencia Artificial (IA) y su funcionamiento. Para empezar, el ponente nos explicó cómo podemos identificarla en nuestro día a día, cuál es su verdadero significado y cómo ha ido evolucionando desde su creación. Además, exploramos conceptos fascinantes como el machine learning (aprendizaje automático) y las redes neuronales, entre otros. También profundizamos en la parte práctica: vimos cómo se programa este tipo de tecnología y comprendimos la lógica detrás de cada línea de código.',
@@ -221,7 +220,7 @@ $('#logLine').addEventListener('click',function(){
    AUDIO (música sintética + efectos, nunca automático)
    ===================================================================== */
 var Snd=(function(){
-  var ctx=null,master=null,scene='inicio',playing=false,userPaused=false,muted=false,sfxOn=true,vol=.5,nodes=[],timers=[],media={},bad={},fadeT=0;
+  var ctx=null,master=null,scene='inicio',playing=false,userPaused=false,muted=false,sfxOn=true,vol=.5,cfg={ui:true,act:true},eng=null,nodes=[],timers=[],media={},bad={},fadeT=0;
   var SCENES={
     inicio:{name:'INICIO // AMBIENTE FUTURISTA',root:55,wave:'sawtooth',cut:420,chord:[1,1.5,2],lfo:.2},
     juego:{name:'JUEGO // INFILTRACIÓN',root:55,wave:'sawtooth',cut:800,chord:[1,1.5],lfo:.5,pulse:190,seq:[1,1,1.5,1,1.25,1,2,1.5],noise:true},
@@ -327,6 +326,7 @@ var Snd=(function(){
     vol:function(v){vol=v/100;applyVol()},
     fx:function(kind){
       if(!sfxOn||muted)return;
+      if((kind==='click'||kind==='key'||kind==='hang')?!cfg.ui:!cfg.act)return;
       if(!ensure())return;
       if(kind==='click')blip(880,.05,'square',.08);
       else if(kind==='key')blip(520,.04,'square',.07);
@@ -339,8 +339,16 @@ var Snd=(function(){
       else if(kind==='coin'){blip(1200,.07,'square',.09);setTimeout(function(){blip(1800,.14,'square',.09)},70)}
       else if(kind==='hit'){blip(90,.18,'sawtooth',.22);blip(60,.25,'square',.12)}
       else if(kind==='siren'){blip(820,.22,'sine',.07);setTimeout(function(){blip(620,.22,'sine',.07)},230)}
+      else if(kind==='shot'){blip(220,.07,'sawtooth',.13);blip(90,.1,'square',.1)}
+      else if(kind==='laser'){blip(1500,.05,'sawtooth',.08);setTimeout(function(){blip(700,.08,'sine',.08)},40)}
       else if(kind==='glitch'){for(var i=0;i<5;i++)(function(i){setTimeout(function(){blip(100+Math.random()*1600,.06,'sawtooth',.1)},i*60)})(i)}
     },
+    engine:function(v){ /* motor del vehículo: v 0..1 (velocidad); 0 lo detiene */
+      if(!ctx||muted||!sfxOn||!cfg.act||!(v>.02)){if(eng){try{eng.g.gain.setTargetAtTime(0,ctx.currentTime,.08);var o=eng.o;setTimeout(function(){try{o.stop()}catch(e){}},400)}catch(e){}eng=null}return}
+      if(!eng){var o=ctx.createOscillator(),f=ctx.createBiquadFilter(),g=ctx.createGain();o.type='sawtooth';f.type='lowpass';f.frequency.value=380;g.gain.value=0;o.connect(f);f.connect(g);g.connect(master);o.start();eng={o:o,g:g}}
+      var t=ctx.currentTime;eng.o.frequency.setTargetAtTime(48+v*110,t,.06);eng.g.gain.setTargetAtTime(.05+.05*v,t,.08)},
+    cfg:cfg,state:function(){return {playing:playing,muted:muted,sfxOn:sfxOn,vol:Math.round(vol*100)}},
+    setPlaying:function(b){if(!!b!==playing)Snd.toggle()},setMuted:function(b){if(!!b!==muted)Snd.mute()},
     ui:ui,
     hidden:function(hid){
       if(hid){Object.keys(media).forEach(function(k){media[k].pause()});if(ctx)ctx.suspend()}
@@ -357,32 +365,8 @@ document.addEventListener('visibilitychange',function(){Snd.hidden(document.hidd
 /* =====================================================================
    PERSONALIZACIÓN (solo cursor y colores)
    ===================================================================== */
-var THEMES={
-  nightcity:{name:'NIGHT CITY',desc:'Amarillo y negro'},
-  edgerunners:{name:'EDGERUNNERS',desc:'Magenta y cian'},
-  arasaka:{name:'ARASAKA',desc:'Rojo y negro'},
-  afterlife:{name:'AFTERLIFE',desc:'Violeta y azul eléctrico'}
-};
-var CURSORS={
-  netrunner:{name:'NETRUNNER',desc:'Cursor tecnológico'},
-  combat:{name:'COMBAT',desc:'Mira futurista'},
-  hologram:{name:'HOLOGRAM',desc:'Cursor holográfico'}
-};
-var DEFAULTS={theme:'nightcity',cursor:'netrunner'};
-var prefs={theme:DEFAULTS.theme,cursor:DEFAULTS.cursor};
-try{
-  var sv=JSON.parse(store.get('dsa_prefs')||'{}');
-  if(THEMES[sv.theme])prefs.theme=sv.theme;
-  if(CURSORS[sv.cursor])prefs.cursor=sv.cursor;
-}catch(e){}
 var cur=$('#cur'),rainColor='#00f0ff';
-function applyPrefs(){
-  root.setAttribute('data-theme',prefs.theme);
-  root.setAttribute('data-cursor',prefs.cursor);
-  cur.setAttribute('data-k',prefs.cursor);
-  store.set('dsa_prefs',JSON.stringify(prefs));
-  rainColor=(getComputedStyle(root).getPropertyValue('--c3')||'#00f0ff').trim();
-}
+function applyPrefs(){rainColor=(getComputedStyle(root).getPropertyValue('--c3')||'#00f0ff').trim()}
 if(!FINE){root.classList.remove('has-cur');cur.hidden=true}
 
 /* cursor + parallax */
@@ -393,41 +377,14 @@ root.addEventListener('mousemove',function(e){
   if(!raf)raf=requestAnimationFrame(function(){
     raf=0;
     cur.style.transform='translate('+mx+'px,'+my+'px)';cur.style.opacity=1;
-    if(!RM){root.style.setProperty('--px',((mx/r.width)-.5)*-30);root.style.setProperty('--mx',(mx/r.width-.5).toFixed(3));root.style.setProperty('--my',(my/r.height-.5).toFixed(3))}
+    if(!RM&&DSA_SET.get().move){root.style.setProperty('--px',((mx/r.width)-.5)*-30);root.style.setProperty('--mx',(mx/r.width-.5).toFixed(3));root.style.setProperty('--my',(my/r.height-.5).toFixed(3))}
   });
   cur.classList.toggle('hov',!!(e.target.closest&&e.target.closest('button,input,a,.card')));
 });
 root.addEventListener('mouseleave',function(){cur.style.opacity=0});
 
-function openPersonalizer(){
-  var box=h('div','');
-  box.innerHTML='<div class="tp-head"><span class="tag">CONFIGURACIÓN</span><h2>PERSONALIZAR</h2></div>'+
-    '<p class="sec-sub" style="margin:0 0 6px">Solo se pueden cambiar el <b>cursor</b> y los <b>colores</b>. Los cambios se aplican al instante.</p>'+
-    '<h3 class="eyebrow" style="margin-top:10px">CURSOR</h3><div class="opts" id="oCur"></div>'+
-    '<h3 class="eyebrow">COLORES</h3><div class="opts" id="oThm"></div>'+
-    '<div class="preview"><b>VISTA PREVIA</b><p style="margin:4px 0 8px">Así se ven tus ajustes: <span class="chip">chip</span> <span class="tag">TAG</span></p><span class="btn">BOTÓN</span></div>'+
-    '<button type="button" class="btn alt" id="oReset">RESTAURAR ORIGINAL</button>';
-  var m=openModal(box);
-  function draw(){
-    var c=$('#oCur',box);c.innerHTML='';
-    Object.keys(CURSORS).forEach(function(k){
-      var b=h('button','opt');b.type='button';b.setAttribute('aria-pressed',String(prefs.cursor===k));
-      b.innerHTML='<div class="demo"><span class="cur-demo" data-k="'+k+'"></span></div><b>'+CURSORS[k].name+'</b><small>'+CURSORS[k].desc+'</small>';
-      b.addEventListener('click',function(){prefs.cursor=k;applyPrefs();Snd.fx('click');log('Cursor: '+CURSORS[k].name);draw()});
-      c.appendChild(b);
-    });
-    var t=$('#oThm',box);t.innerHTML='';
-    Object.keys(THEMES).forEach(function(k){
-      var b=h('button','opt');b.type='button';b.setAttribute('data-theme',k);b.setAttribute('aria-pressed',String(prefs.theme===k));
-      b.innerHTML='<div class="sw"><i></i><i></i><i></i></div><b>'+THEMES[k].name+'</b><small>'+THEMES[k].desc+'</small>';
-      b.addEventListener('click',function(){prefs.theme=k;applyPrefs();Snd.fx('click');log('Perfil de color: '+THEMES[k].name);draw()});
-      t.appendChild(b);
-    });
-  }
-  draw();
-  $('#oReset',box).addEventListener('click',function(){prefs.theme=DEFAULTS.theme;prefs.cursor=DEFAULTS.cursor;applyPrefs();store.del('dsa_prefs');Snd.fx('ok');log('Configuración restaurada');draw()});
-}
-$('#btnPers').addEventListener('click',openPersonalizer);
+DSA_SET.init({root:root,store:store,Snd:Snd,cur:cur,FINE:FINE,rain:$('#rain'),openModal:openModal,log:log,onApply:function(S,rm){RM=rm;applyPrefs()}});
+$('#btnPers').addEventListener('click',DSA_SET.open);
 
 /* =====================================================================
    MODALES
@@ -686,13 +643,15 @@ function openTopic(i,fromNav){
   box.innerHTML='<div class="tp-head"><span class="tag">TEMA '+pad(t.n)+'</span><h2>'+esc(t.name)+'</h2>'+levelHTML(t.level)+'<span class="st">● '+esc(t.status)+'</span></div><div id="accs"></div>'+
     '<div class="tp-nav"><button type="button" class="btn alt" id="tpPrev"'+(i===0?' disabled style="opacity:.3"':'')+'>◂ ANTERIOR</button><button type="button" class="btn alt" id="tpNext"'+(i===TOPICS.length-1?' disabled style="opacity:.3"':'')+'>SIGUIENTE ▸</button></div>';
   var accs=$('#accs',box);
-  SECTION_DEFS.forEach(function(s,k){
+  var shown=0;
+  SECTION_DEFS.forEach(function(s){
+    var txt0=t.sections[s.key];if(!(txt0&&txt0.trim())&&!(s.key==='tecnico'&&t.evidencias&&t.evidencias.length))return;
+    var k=shown++;
     var d=h('div','acc'),b=h('button','acc-b');b.type='button';b.setAttribute('aria-expanded',k===0?'true':'false');
     b.innerHTML='<b>'+(k+1)+'</b> '+s.label+'<i>'+(k===0?'−':'+')+'</i>';
     var c=h('div','acc-c');c.hidden=k!==0;
     var txt=t.sections[s.key];
     if(txt&&txt.trim())c.innerHTML=paragraphs(txt);
-    else c.innerHTML='<p class="ph">[ PENDIENTE ] '+esc(s.hint)+'</p>';
     if(s.key==='tecnico'&&t.evidencias&&t.evidencias.length){
       t.evidencias.forEach(function(ev){c.insertAdjacentHTML('beforeend','<p><b>'+esc(ev.t||'')+'</b><br><img src="'+esc(ev.src)+'" alt="'+esc(ev.t||'Evidencia')+'" style="max-width:100%;border:1px solid var(--c3)"></p>')});
     }
@@ -719,7 +678,7 @@ function setSemTab(n){
 function renderS2(){
   var v=$('#view2');v.innerHTML='';
   if(CONFIG.SEMESTER2_UNLOCKED){
-    if(!SEMESTER2_TOPICS.length){v.innerHTML='<div class="panel"><h3>SEMESTRE 2 // DESBLOQUEADO</h3><p class="ph">[ PENDIENTE ] Todavía no hay temas. Añádelos a SEMESTER2_TOPICS.</p></div>';return}
+    if(!SEMESTER2_TOPICS.length){v.innerHTML='<div class="panel"><h3>SEMESTRE 2 // DESBLOQUEADO</h3><p class="ph">El semestre 2 todavía no tiene temas.</p></div>';return}
     var g=h('div','grid');
     SEMESTER2_TOPICS.forEach(function(t,i){
       var b=h('button','card');b.type='button';
@@ -763,7 +722,7 @@ function renderEspecial(){
   ENTRIES.filter(function(e){return espFilter==='TODAS'||e.type===espFilter}).forEach(function(e){
     var a=h('article','entry comic');
     var panels=e.panels||e.paragraphs.map(function(p,i){return {t:i===0?'QUÉ SE EXPLICÓ':'MI EXPERIENCIA',x:p}});
-    a.innerHTML='<div class="cm-hero"><div class="entry-img">'+(e.img?artHTML(e.img):'<span>[ imagen pendiente ]</span>')+'</div><div><span class="tag">'+esc(e.type)+'</span><h3>'+esc(e.title)+'</h3><small>Pulsa una viñeta para desplegarla</small></div></div><div class="cm-grid"></div>';
+    a.innerHTML='<div class="cm-hero"><div class="geo" data-geo="'+(ENTRIES.indexOf(e)%4)+'" role="img" aria-label="Animación geométrica decorativa"></div><div><span class="tag">'+esc(e.type)+'</span><h3>'+esc(e.title)+'</h3><small>Pulsa una viñeta para desplegarla</small></div></div><div class="cm-grid"></div>';
     var g=a.querySelector('.cm-grid');
     panels.forEach(function(p,i){
       var b=h('button','cm-p');b.type='button';b.setAttribute('aria-expanded','false');
@@ -771,7 +730,7 @@ function renderEspecial(){
       b.addEventListener('click',function(){var o=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!o));Snd.fx('click')});
       g.appendChild(b);
     });
-    list.appendChild(a);
+    list.appendChild(a);if(window.DSA_GEO)DSA_GEO.scan(a);
   });
 }
 
@@ -790,11 +749,11 @@ function openDoc(i){
   var r=REFLEXIONES[i],box=h('div','');
   box.innerHTML='<div class="tp-head"><span class="tag">'+esc(r.code)+'</span><h2>'+esc(r.title)+'</h2></div><div id="dAcc"></div>';
   var acc=$('#dAcc',box);
-  r.items.forEach(function(it,k){
+  r.items.filter(function(it){return it.t&&it.t.trim()}).forEach(function(it,k){
     var d=h('div','acc'),b=h('button','acc-b');b.type='button';b.setAttribute('aria-expanded',k===0?'true':'false');
     b.innerHTML='<b>'+pad(k+1)+'</b> '+esc(it.h)+'<i>'+(k===0?'−':'+')+'</i>';
     var c=h('div','acc-c');c.hidden=k!==0;
-    c.innerHTML=it.t&&it.t.trim()?paragraphs(it.t):'<p class="ph">[ PENDIENTE ] Escribe aquí tu reflexión sobre este punto.</p>';
+    c.innerHTML=paragraphs(it.t);
     b.addEventListener('click',function(){var o=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!o));c.hidden=o;b.lastChild.textContent=o?'+':'−';Snd.fx('click')});
     d.appendChild(b);d.appendChild(c);acc.appendChild(d);
   });
@@ -996,7 +955,7 @@ function telStop(){clearInterval(telTimer)}
   }
   function tick(t){
     requestAnimationFrame(tick);
-    if(document.hidden||t-last<60)return;
+    if(document.hidden||cv.hidden||t-last<60/(window.DSA_RAIN_SPEED||1))return;
     last=t;
     cx.fillStyle='rgba(5,6,10,.14)';cx.fillRect(0,0,cv.width,cv.height);
     cx.fillStyle=rainColor;cx.font=fs+'px monospace';
@@ -1319,7 +1278,7 @@ function initGame(){
 /* =====================================================================
    INICIALIZACIÓN
    ===================================================================== */
-applyPrefs();applyImages();
+applyImages();
 renderHome();initSafe();initGame();renderGrid();renderEspecial();renderDocs();
 if(CONFIG.SEMESTER2_UNLOCKED){
   $('#tab2s').textContent='UNLOCKED // ACCESS GRANTED';$('#tab2').classList.remove('no');$('#tab2').classList.add('ok');
@@ -1327,6 +1286,7 @@ if(CONFIG.SEMESTER2_UNLOCKED){
 window.DSA_API={root:root,h:h,esc:esc,store:store,fx:function(k){Snd.fx(k)},log:log,openModal:openModal,closeModal:closeModal,snd:Snd,go:function(s){curSec='';go(s)},closeAll:function(){closeCity();closeModal(true)}};
 if(window.DSA_SEC)DSA_SEC.init(DSA_API);
 if(window.DSA_MOTION)DSA_MOTION.init(root,RM,FINE);
+if(window.DSA_GEO)DSA_GEO.scan(root);
 if(window.DSA_ARC){DSA_ARC.init(DSA_API);var bA=$('#btnArc');if(bA)bA.addEventListener('click',function(){Snd.fx('click');DSA_ARC.open('inv')})}
 var free=null;
 function closeFree(){if(free){try{free.destroy()}catch(e){}free=null}Snd.scene(curSecScene())}

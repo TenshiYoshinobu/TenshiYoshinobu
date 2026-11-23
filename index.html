@@ -38,9 +38,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=11">
-<link rel="stylesheet" href="css/fx.css?v=11">
-<link rel="stylesheet" href="css/gta.css?v=11">
+<link rel="stylesheet" href="css/style.css?v=14">
+<link rel="stylesheet" href="css/fx.css?v=14">
+<link rel="stylesheet" href="css/gta.css?v=14">
 </head>
 <body>
 <div class="ds has-cur" id="ds" data-theme="nightcity" data-cursor="netrunner">
@@ -141,6 +141,7 @@
           <p class="eyebrow">04 // PERSONAL LOGS</p>
           <h2 class="sec-h" id="t-ref">PERSONAL LOGS</h2>
           <p class="sec-sub">Archivos personales almacenados en el sistema. Pulsa un archivo para abrirlo.</p>
+          <div class="geo geo-band" data-geo="1" role="img" aria-label="Animación geométrica decorativa"><span class="geo-lb">MEMORIA // INTROSPECCIÓN // SEÑAL</span></div>
           <div class="docs" id="docs"></div>
         </div>
       </section>
@@ -220,17 +221,20 @@
 window.addEventListener('error',function(e){if(e.target&&e.target!==window&&(e.target.src||e.target.href)){if(/fonts\.g/.test(e.target.href||''))return;show('no se pudo cargar '+(e.target.src||e.target.href))}else show((e.message||'error')+' ['+String(e.filename||'').split('/').pop()+':'+e.lineno+']')},true);
 window.addEventListener('load',function(){setTimeout(function(){var miss=['DSA_SEC','DSA_GTA','DSA_CHAR','DSA_HACK','DSA_CITY','DSA_ICONS','DSA_ARC'].filter(function(k){return !window[k]});if(miss.length)show('faltan archivos JS: '+miss.join(', '))},800)})})();
 </script>
-<script>window.DSA_IMAGES={usb:'assets/img/usb.webp?v=11',padlock:'assets/img/padlock.webp?v=11',handoff:'assets/img/handoff.webp?v=11',cable:'assets/img/cable.webp?v=11',scanner:'assets/img/scanner.webp?v=11'};</script>
-<script src="js/icons.js?v=11"></script>
-<script src="js/city.js?v=11"></script>
-<script src="js/secrets.js?v=11"></script>
-<script src="js/motion.js?v=11"></script>
-<script src="js/archive.js?v=11"></script>
-<script src="js/char.js?v=11"></script>
-<script src="js/hack.js?v=11"></script>
-<script src="js/gta.js?v=11"></script>
-<script src="js/content.js?v=11"></script>
-<script src="js/visuals.js?v=11"></script>
-<script src="js/main.js?v=11"></script>
+<script>window.DSA_IMAGES={usb:'assets/img/usb.webp?v=14',padlock:'assets/img/padlock.webp?v=14',handoff:'assets/img/handoff.webp?v=14',cable:'assets/img/cable.webp?v=14',scanner:'assets/img/scanner.webp?v=14'};</script>
+<script src="js/icons.js?v=14"></script>
+<script src="js/city.js?v=14"></script>
+<script src="js/secrets.js?v=14"></script>
+<script src="js/geo.js?v=14"></script>
+<script src="js/motion.js?v=14"></script>
+<script src="js/archive.js?v=14"></script>
+<script src="js/char.js?v=14"></script>
+<script src="js/hack.js?v=14"></script>
+<script src="js/gfx.js?v=14"></script>
+<script src="js/gta.js?v=14"></script>
+<script src="js/content.js?v=14"></script>
+<script src="js/visuals.js?v=14"></script>
+<script src="js/settings.js?v=14"></script>
+<script src="js/main.js?v=14"></script>
 </body>
 </html>

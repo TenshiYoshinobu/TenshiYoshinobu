@@ -229,7 +229,7 @@ function create(box,opt){
     fpsA+=((1/Math.max(dt,.001))-fpsA)*.05;
     /* calidad adaptativa: si baja de 28 fps durante 2 s se reduce la resolución */
     if(fpsA<28){lowT+=dt;if(lowT>2&&scale>.5){scale-=.15;lowT=0;fpsA=40}}else lowT=0;
-    var dpr=Math.min(window.devicePixelRatio||1,1.5)*scale;
+    var gq=window.DSA_GFX?DSA_GFX.get():null,qk=gq?[.7,1,1.25][gq.tex|0]||1:1,dpr=Math.min(window.devicePixelRatio||1,1.5)*scale*qk;
     var nw=Math.max(2,cv.clientWidth*dpr|0),nh=Math.max(2,cv.clientHeight*dpr|0);
     if(cv.width!==nw||cv.height!==nh){cv.width=nw;cv.height=nh}W=nw;H=nh;
     gl.viewport(0,0,W,H);
